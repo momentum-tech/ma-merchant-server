@@ -6,7 +6,7 @@
 <generatorConfiguration>
     <!-- classPathEntry:数据库的JDBC驱动 -->  
     <!-- classPathEntry一次引入一个Jar包， 多个Jar用多个classPathEntry引入 -->
-    <classPathEntry location="C:/Dev/mysql-connector-java-5.1.26-bin.jar" />    
+    <classPathEntry location="E:/Developer/tools/mysql-connector-java-5.1.26-bin.jar" />    
     
     <context id="mybatis" targetRuntime="MyBatis3">
         <!-- 注意这里面的顺序确定的，不能随便更改 -->
@@ -35,7 +35,7 @@
         <!-- java模型生成器 -->
         <!-- targetProject:自动生成代码的位置 -->
         <javaModelGenerator targetPackage="com.mmnttech.ma.merchant.server.database.entity"
-            targetProject="C:/Dev/github/ma-merchant-server/src/main/java/">
+            targetProject="E:/Developer/MomentumTech/ma-merchant-server/src/main/java/">
             <property name="enableSubPackages" value="true" />
             <property name="trimStrings" value="true" />
         </javaModelGenerator>   
@@ -43,14 +43,14 @@
         <!-- 必须的(1 required) -->
         <!-- map xml 生成器 -->
         <sqlMapGenerator targetPackage="mapper"
-            targetProject="C:/Dev/github/ma-merchant-server/src/main/resources">
+            targetProject="E:/Developer/MomentumTech/ma-merchant-server/src/main/resources">
             <property name="enableSubPackages" value="true" />
         </sqlMapGenerator>
         
         <!-- 可选的(0 or 1) -->
         <!-- mapper或者就是dao接口生成器 -->
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.mmnttech.ma.merchant.server.database.mappers" 
-            targetProject="C:/Dev/github/ma-merchant-server/src/main/java/">
+            targetProject="E:/Developer/MomentumTech/ma-merchant-server/src/main/java/">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         
@@ -60,21 +60,18 @@
         <!-- pojo实体类生成器 -->
         <!-- tableName:用于自动生成代码的数据库表 -->  
         <!-- domainObjectName:对应于数据表的javaBean类名 -->
-        <!--
-        <table tableName="t_plat_para" domainObjectName="PlatPara" enableInsert="true"></table>
-        <table tableName="t_attachment" domainObjectName="Attachment" enableInsert="true"></table>
-        <table tableName="t_user" domainObjectName="User" enableInsert="true"></table>
-        <table tableName="t_com_info" domainObjectName="ComInfo" enableInsert="true"></table>
-        <table tableName="t_car_owner" domainObjectName="CarOwner" enableInsert="true"></table>
-        <table tableName="t_haul_track" domainObjectName="HaulTrack" enableInsert="true"></table>
-        <table tableName="t_clec" domainObjectName="Clec" enableInsert="true"></table>
-        <table tableName="t_company" domainObjectName="Company" enableInsert="true"></table>
-        <table tableName="t_user" domainObjectName="User" enableInsert="true"></table>
-        <table tableName="t_haul_track" domainObjectName="HaulTrack" enableInsert="true"></table>
-        <table tableName="t_goods_info" domainObjectName="GoodsInfo" enableInsert="true"></table> 
-        -->
         
+        <table tableName="t_plat_para" domainObjectName="PlatPara" enableInsert="true"></table>
+        <table tableName="t_attach" domainObjectName="Attach" enableInsert="true"></table>
+        <table tableName="t_svc_user" domainObjectName="User" enableInsert="true"></table>
+        <table tableName="t_menu_group" domainObjectName="MenuGroup" enableInsert="true"></table>
+        <table tableName="t_menu" domainObjectName="Menu" enableInsert="true"></table>
+        <table tableName="t_role" domainObjectName="Role" enableInsert="true"></table>
+        <table tableName="t_industry_code" domainObjectName="IndustryCode" enableInsert="true"></table>
+        <table tableName="t_merchant" domainObjectName="Merchant" enableInsert="true"></table>       
         <table tableName="t_merchant_user" domainObjectName="MerchantUser" enableInsert="true"></table>
+        <table tableName="t_role_menu_group" domainObjectName="RoleMenuGroup" enableInsert="true"></table>
+        <table tableName="t_area_code" domainObjectName="AreaCode" enableInsert="true"></table>
     </context>
     
 </generatorConfiguration>  
