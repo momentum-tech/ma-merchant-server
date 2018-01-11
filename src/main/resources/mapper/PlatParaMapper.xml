@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmnttech.ma.merchant.server.database.mappers.PlatParaMapper">
+  <resultMap id="BaseResultMap" type="com.mmnttech.ma.merchant.server.database.entity.PlatPara">
+    <id column="plat_no" jdbcType="VARCHAR" property="platNo" />
+    <result column="plat_name" jdbcType="VARCHAR" property="platName" />
+    <result column="plat_stat" jdbcType="CHAR" property="platStat" />
+    <result column="plat_date" jdbcType="CHAR" property="platDate" />
+    <result column="pre_date" jdbcType="CHAR" property="preDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    plat_no, plat_name, plat_stat, plat_date, pre_date
+  </sql>
+  <select id="selectByExample" parameterType="com.mmnttech.ma.merchant.server.database.entity.PlatParaExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_plat_para
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_plat_para
+    where plat_no = #{platNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_plat_para
+    where plat_no = #{platNo,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mmnttech.ma.merchant.server.database.entity.PlatParaExample">
+    delete from t_plat_para
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mmnttech.ma.merchant.server.database.entity.PlatPara">
+    insert into t_plat_para (plat_no, plat_name, plat_stat, 
+      plat_date, pre_date)
+    values (#{platNo,jdbcType=VARCHAR}, #{platName,jdbcType=VARCHAR}, #{platStat,jdbcType=CHAR}, 
+      #{platDate,jdbcType=CHAR}, #{preDate,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mmnttech.ma.merchant.server.database.entity.PlatPara">
+    insert into t_plat_para
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="platNo != null">
+        plat_no,
+      </if>
+      <if test="platName != null">
+        plat_name,
+      </if>
+      <if test="platStat != null">
+        plat_stat,
+      </if>
+      <if test="platDate != null">
+        plat_date,
+      </if>
+      <if test="preDate != null">
+        pre_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="platNo != null">
+        #{platNo,jdbcType=VARCHAR},
+      </if>
+      <if test="platName != null">
+        #{platName,jdbcType=VARCHAR},
+      </if>
+      <if test="platStat != null">
+        #{platStat,jdbcType=CHAR},
+      </if>
+      <if test="platDate != null">
+        #{platDate,jdbcType=CHAR},
+      </if>
+      <if test="preDate != null">
+        #{preDate,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mmnttech.ma.merchant.server.database.entity.PlatParaExample" resultType="java.lang.Long">
+    select count(*) from t_plat_para
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update t_plat_para
+    <set>
+      <if test="record.platNo != null">
+        plat_no = #{record.platNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.platName != null">
+        plat_name = #{record.platName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.platStat != null">
+        plat_stat = #{record.platStat,jdbcType=CHAR},
+      </if>
+      <if test="record.platDate != null">
+        plat_date = #{record.platDate,jdbcType=CHAR},
+      </if>
+      <if test="record.preDate != null">
+        pre_date = #{record.preDate,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update t_plat_para
+    set plat_no = #{record.platNo,jdbcType=VARCHAR},
+      plat_name = #{record.platName,jdbcType=VARCHAR},
+      plat_stat = #{record.platStat,jdbcType=CHAR},
+      plat_date = #{record.platDate,jdbcType=CHAR},
+      pre_date = #{record.preDate,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmnttech.ma.merchant.server.database.entity.PlatPara">
+    update t_plat_para
+    <set>
+      <if test="platName != null">
+        plat_name = #{platName,jdbcType=VARCHAR},
+      </if>
+      <if test="platStat != null">
+        plat_stat = #{platStat,jdbcType=CHAR},
+      </if>
+      <if test="platDate != null">
+        plat_date = #{platDate,jdbcType=CHAR},
+      </if>
+      <if test="preDate != null">
+        pre_date = #{preDate,jdbcType=CHAR},
+      </if>
+    </set>
+    where plat_no = #{platNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mmnttech.ma.merchant.server.database.entity.PlatPara">
+    update t_plat_para
+    set plat_name = #{platName,jdbcType=VARCHAR},
+      plat_stat = #{platStat,jdbcType=CHAR},
+      plat_date = #{platDate,jdbcType=CHAR},
+      pre_date = #{preDate,jdbcType=CHAR}
+    where plat_no = #{platNo,jdbcType=VARCHAR}
+  </update>
+</mapper>
