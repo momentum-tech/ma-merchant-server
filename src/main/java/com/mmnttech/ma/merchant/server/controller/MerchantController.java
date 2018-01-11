@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mmnttech.ma.merchant.server.common.entity.QueryEntity;
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
+import com.mmnttech.ma.merchant.server.database.entity.Merchant;
+import com.mmnttech.ma.merchant.server.database.entity.SvcUser;
 import com.mmnttech.ma.merchant.server.service.MerchantService;
 
 /**
@@ -38,7 +40,7 @@ public class MerchantController {
 	@ResponseBody
 	@RequestMapping(value = "login")
 	public RtnMessage login(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("queryEntity") QueryEntity queryEntity) {
+			@ModelAttribute("svcUser") SvcUser svcUser) {
 		RtnMessage rtnMsg = new RtnMessage();
 		try {
 			//TODO
@@ -57,7 +59,7 @@ public class MerchantController {
 	@ResponseBody
 	@RequestMapping(value = "register")
 	public RtnMessage register(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("queryEntity") QueryEntity queryEntity) {
+			@ModelAttribute("svcUser") SvcUser svcUser) {
 		RtnMessage rtnMsg = new RtnMessage();
 		try {
 			//TODO
@@ -75,7 +77,7 @@ public class MerchantController {
 	@ResponseBody
 	@RequestMapping(value = "passwd")
 	public RtnMessage passwd(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("queryEntity") QueryEntity queryEntity) {
+			@ModelAttribute("merchant") Merchant merchant) {
 		RtnMessage rtnMsg = new RtnMessage();
 		
 		try {
@@ -92,9 +94,9 @@ public class MerchantController {
 	
 	//商户详细信息填写
 	@ResponseBody
-	@RequestMapping(value = "detailInfo")
+	@RequestMapping(value = "createDetailInfo")
 	public RtnMessage createDetailInfo(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("queryEntity") QueryEntity queryEntity) {
+			@ModelAttribute("merchant") Merchant merchant) {
 		RtnMessage rtnMsg = new RtnMessage();
 
 		try {
@@ -114,7 +116,7 @@ public class MerchantController {
 	@ResponseBody
 	@RequestMapping(value = "queryProgressInfo")
 	public RtnMessage queryProgressInfo(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("queryEntity") QueryEntity queryEntity) {
+			@ModelAttribute("merchant") Merchant merchant) {
 		RtnMessage rtnMsg = new RtnMessage();
 
 		try {
@@ -133,7 +135,7 @@ public class MerchantController {
 	@ResponseBody
 	@RequestMapping(value = "queryMerchantQRImage")
 	public RtnMessage queryMerchantQRImage(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("queryEntity") QueryEntity queryEntity) {
+			@ModelAttribute("merchant") Merchant merchant) {
 		RtnMessage rtnMsg = new RtnMessage();
 
 		try {
