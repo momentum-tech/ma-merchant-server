@@ -1,7 +1,7 @@
 
 
 /*==============================================================*/
-/* Table:t_plat_para    平台参数表  */
+/* Table:t_plat_para    */
 /*==============================================================*/
 CREATE TABLE t_plat_para(
         plat_no         varchar(20) NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE t_plat_para(
 ENGINE= InnoDB DEFAULT CHARSET= utf8;
 
 /*==============================================================*/
-/* Table:t_svc_user    后台业务管理用户表  */
+/* Table:t_svc_user     */
 /*==============================================================*/
 CREATE TABLE t_svc_user(
         user_id         varchar(32) NOT NULL,
@@ -39,7 +39,7 @@ CREATE UNIQUE INDEX t_svc_user_uidx1 ON t_svc_user
 );
 
 /*==============================================================*/
-/* Table:t_menu_group    菜单组管理  */
+/* Table:t_menu_group  */
 /*==============================================================*/
 CREATE TABLE t_menu_group(
         rec_id          varchar(32) NOT NULL,
@@ -53,7 +53,7 @@ CREATE TABLE t_menu_group(
 ENGINE= InnoDB DEFAULT CHARSET= utf8;
 
 /*==============================================================*/
-/* Table:t_menu    菜单管理  */
+/* Table:t_menu   */
 /*==============================================================*/
 CREATE TABLE t_menu(
         rec_id          varchar(32) NOT NULL,
@@ -68,7 +68,7 @@ CREATE TABLE t_menu(
 ENGINE= InnoDB DEFAULT CHARSET= utf8;
 
 /*==============================================================*/
-/* Table:t_role    角色管理  */
+/* Table:t_role  */
 /*==============================================================*/
 CREATE TABLE t_role(
         rec_id          varchar(32) NOT NULL,
@@ -80,7 +80,7 @@ CREATE TABLE t_role(
 ENGINE= InnoDB DEFAULT CHARSET= utf8;
 
 /*==============================================================*/
-/* Table:t_role_menu_group    角色菜单组关系管理  */
+/* Table:t_role_menu_group   */
 /*==============================================================*/
 CREATE TABLE t_role_menu_group(
         rec_id          varchar(32) NOT NULL,
@@ -92,7 +92,7 @@ CREATE TABLE t_role_menu_group(
 ENGINE= InnoDB DEFAULT CHARSET= utf8;
 
 /*==============================================================*/
-/* Table:t_attach    附件表  */
+/* Table:t_attach  */
 /*==============================================================*/
 CREATE TABLE t_attach(
         rec_id          varchar(32) NOT NULL,
@@ -114,7 +114,7 @@ CREATE UNIQUE INDEX t_attach_uidx1 ON t_attach
 );
 
 /*==============================================================*/
-/* Table:t_industry_code    行业编码表  */
+/* Table:t_industry_code*/
 /*==============================================================*/
 CREATE TABLE t_industry_code(
         rec_id          varchar(32) NOT NULL,
@@ -132,7 +132,7 @@ CREATE UNIQUE INDEX t_industry_code_uidx1 ON t_industry_code
 );
 
 /*==============================================================*/
-/* Table:t_industry_code    行业编码表  */
+/* Table:t_industry_code   */
 /*==============================================================*/
 CREATE TABLE t_industry_code(
         rec_id          varchar(32) NOT NULL,
@@ -150,7 +150,7 @@ CREATE UNIQUE INDEX t_industry_code_uidx1 ON t_industry_code
 );
 
 /*==============================================================*/
-/* Table:t_area_code    区域编码表  */
+/* Table:t_area_code   */
 /*==============================================================*/
 CREATE TABLE t_area_code(
         rec_id          varchar(32) NOT NULL,
@@ -169,7 +169,7 @@ CREATE UNIQUE INDEX t_area_code_uidx1 ON t_area_code
 );
 
 /*==============================================================*/
-/* Table:t_area_code    区域编码表  */
+/* Table:t_area_code*/
 /*==============================================================*/
 CREATE TABLE t_area_code(
         rec_id          varchar(32) NOT NULL,
@@ -188,7 +188,7 @@ CREATE UNIQUE INDEX t_area_code_uidx1 ON t_area_code
 );
 
 /*==============================================================*/
-/* Table:t_industry_code    行业编码表  */
+/* Table:t_industry_code */
 /*==============================================================*/
 CREATE TABLE t_industry_code(
         rec_id          varchar(32) NOT NULL,
@@ -206,7 +206,7 @@ CREATE UNIQUE INDEX t_industry_code_uidx1 ON t_industry_code
 );
 
 /*==============================================================*/
-/* Table:t_industry_code    行业编码表  */
+/* Table:t_industry_code  */
 /*==============================================================*/
 CREATE TABLE t_industry_code(
         rec_id          varchar(32) NOT NULL,
@@ -224,13 +224,15 @@ CREATE UNIQUE INDEX t_industry_code_uidx1 ON t_industry_code
 );
 
 /*==============================================================*/
-/* Table:t_merchant    商户表  */
+/* Table:t_merchant  */
 /*==============================================================*/
 CREATE TABLE t_merchant(
         rec_id          varchar(32) NOT NULL,
         cpy_name            varchar(128) NULL,
         industry_code           varchar(6) NULL,
         area_code           varchar(6) NULL,
+        ID_card_no              varchar(32) NULL,
+        license_no              varchar(32) NULL,
         category_code           varchar(6) NULL,
         cpy_legal_name          varchar(32) NULL,
         cpy_address         varchar(256) NULL,
@@ -252,7 +254,7 @@ CREATE TABLE t_merchant(
 ENGINE= InnoDB DEFAULT CHARSET= utf8;
 
 /*==============================================================*/
-/* Table:t_merchant_user    商户用户表  */
+/* Table:t_merchant_user */
 /*==============================================================*/
 CREATE TABLE t_merchant_user(
         user_id         varchar(32) NOT NULL,

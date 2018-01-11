@@ -1,47 +1,49 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mmnttech.ma.merchant.server.database.mappers.MerchantMapper">
-  <resultMap id="BaseResultMap" type="com.mmnttech.ma.merchant.server.database.entity.Merchant">
-    <id column="rec_id" jdbcType="VARCHAR" property="recId" />
-    <result column="cpy_name" jdbcType="VARCHAR" property="cpyName" />
-    <result column="industry_code" jdbcType="VARCHAR" property="industryCode" />
-    <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
-    <result column="category_code" jdbcType="VARCHAR" property="categoryCode" />
-    <result column="cpy_legal_name" jdbcType="VARCHAR" property="cpyLegalName" />
-    <result column="cpy_address" jdbcType="VARCHAR" property="cpyAddress" />
-    <result column="address_coor_x" jdbcType="DECIMAL" property="addressCoorX" />
-    <result column="address_coor_y" jdbcType="DECIMAL" property="addressCoorY" />
-    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
-    <result column="special" jdbcType="VARCHAR" property="special" />
-    <result column="linkman" jdbcType="VARCHAR" property="linkman" />
-    <result column="svr_tel" jdbcType="VARCHAR" property="svrTel" />
-    <result column="auth_step" jdbcType="VARCHAR" property="authStep" />
-    <result column="com_stat" jdbcType="VARCHAR" property="comStat" />
-    <result column="auth_reason" jdbcType="VARCHAR" property="authReason" />
-    <result column="stat" jdbcType="CHAR" property="stat" />
-    <result column="clr_act" jdbcType="VARCHAR" property="clrAct" />
-    <result column="com_memo" jdbcType="VARCHAR" property="comMemo" />
-    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mmnttech.ma.merchant.server.database.mappers.MerchantMapper" >
+  <resultMap id="BaseResultMap" type="com.mmnttech.ma.merchant.server.database.entity.Merchant" >
+    <id column="rec_id" property="recId" jdbcType="VARCHAR" />
+    <result column="cpy_name" property="cpyName" jdbcType="VARCHAR" />
+    <result column="industry_code" property="industryCode" jdbcType="VARCHAR" />
+    <result column="area_code" property="areaCode" jdbcType="VARCHAR" />
+    <result column="category_code" property="categoryCode" jdbcType="VARCHAR" />
+    <result column="cpy_legal_name" property="cpyLegalName" jdbcType="VARCHAR" />
+    <result column="cpy_address" property="cpyAddress" jdbcType="VARCHAR" />
+    <result column="address_coor_x" property="addressCoorX" jdbcType="DECIMAL" />
+    <result column="address_coor_y" property="addressCoorY" jdbcType="DECIMAL" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="special" property="special" jdbcType="VARCHAR" />
+    <result column="linkman" property="linkman" jdbcType="VARCHAR" />
+    <result column="svr_tel" property="svrTel" jdbcType="VARCHAR" />
+    <result column="auth_step" property="authStep" jdbcType="VARCHAR" />
+    <result column="com_stat" property="comStat" jdbcType="VARCHAR" />
+    <result column="auth_reason" property="authReason" jdbcType="VARCHAR" />
+    <result column="stat" property="stat" jdbcType="CHAR" />
+    <result column="clr_act" property="clrAct" jdbcType="VARCHAR" />
+    <result column="com_memo" property="comMemo" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="license_no" property="licenseNo" jdbcType="VARCHAR" />
+    <result column="ID_card_no" property="idCardNo" jdbcType="VARCHAR" />
   </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -52,25 +54,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue">
+                <when test="criterion.singleValue" >
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue">
+                <when test="criterion.betweenValue" >
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue">
+                <when test="criterion.listValue" >
                   and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
                     #{listItem}
                   </foreach>
                 </when>
@@ -81,259 +83,279 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List">
+  <sql id="Base_Column_List" >
     rec_id, cpy_name, industry_code, area_code, category_code, cpy_legal_name, cpy_address, 
     address_coor_x, address_coor_y, introduction, special, linkman, svr_tel, auth_step, 
-    com_stat, auth_reason, stat, clr_act, com_memo, create_date
+    com_stat, auth_reason, stat, clr_act, com_memo, create_date, license_no, ID_card_no
   </sql>
-  <select id="selectByExample" parameterType="com.mmnttech.ma.merchant.server.database.entity.MerchantExample" resultMap="BaseResultMap">
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.mmnttech.ma.merchant.server.database.entity.MerchantExample" >
     select
-    <if test="distinct">
+    <if test="distinct" >
       distinct
     </if>
     <include refid="Base_Column_List" />
     from t_merchant
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null">
+    <if test="orderByClause != null" >
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from t_merchant
     where rec_id = #{recId,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from t_merchant
     where rec_id = #{recId,jdbcType=VARCHAR}
   </delete>
-  <delete id="deleteByExample" parameterType="com.mmnttech.ma.merchant.server.database.entity.MerchantExample">
+  <delete id="deleteByExample" parameterType="com.mmnttech.ma.merchant.server.database.entity.MerchantExample" >
     delete from t_merchant
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.mmnttech.ma.merchant.server.database.entity.Merchant">
+  <insert id="insert" parameterType="com.mmnttech.ma.merchant.server.database.entity.Merchant" >
     insert into t_merchant (rec_id, cpy_name, industry_code, 
       area_code, category_code, cpy_legal_name, 
       cpy_address, address_coor_x, address_coor_y, 
       introduction, special, linkman, 
       svr_tel, auth_step, com_stat, 
       auth_reason, stat, clr_act, 
-      com_memo, create_date)
+      com_memo, create_date, license_no, 
+      ID_card_no)
     values (#{recId,jdbcType=VARCHAR}, #{cpyName,jdbcType=VARCHAR}, #{industryCode,jdbcType=VARCHAR}, 
       #{areaCode,jdbcType=VARCHAR}, #{categoryCode,jdbcType=VARCHAR}, #{cpyLegalName,jdbcType=VARCHAR}, 
       #{cpyAddress,jdbcType=VARCHAR}, #{addressCoorX,jdbcType=DECIMAL}, #{addressCoorY,jdbcType=DECIMAL}, 
       #{introduction,jdbcType=VARCHAR}, #{special,jdbcType=VARCHAR}, #{linkman,jdbcType=VARCHAR}, 
       #{svrTel,jdbcType=VARCHAR}, #{authStep,jdbcType=VARCHAR}, #{comStat,jdbcType=VARCHAR}, 
       #{authReason,jdbcType=VARCHAR}, #{stat,jdbcType=CHAR}, #{clrAct,jdbcType=VARCHAR}, 
-      #{comMemo,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP})
+      #{comMemo,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{licenseNo,jdbcType=VARCHAR}, 
+      #{idCardNo,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.mmnttech.ma.merchant.server.database.entity.Merchant">
+  <insert id="insertSelective" parameterType="com.mmnttech.ma.merchant.server.database.entity.Merchant" >
     insert into t_merchant
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="recId != null">
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="recId != null" >
         rec_id,
       </if>
-      <if test="cpyName != null">
+      <if test="cpyName != null" >
         cpy_name,
       </if>
-      <if test="industryCode != null">
+      <if test="industryCode != null" >
         industry_code,
       </if>
-      <if test="areaCode != null">
+      <if test="areaCode != null" >
         area_code,
       </if>
-      <if test="categoryCode != null">
+      <if test="categoryCode != null" >
         category_code,
       </if>
-      <if test="cpyLegalName != null">
+      <if test="cpyLegalName != null" >
         cpy_legal_name,
       </if>
-      <if test="cpyAddress != null">
+      <if test="cpyAddress != null" >
         cpy_address,
       </if>
-      <if test="addressCoorX != null">
+      <if test="addressCoorX != null" >
         address_coor_x,
       </if>
-      <if test="addressCoorY != null">
+      <if test="addressCoorY != null" >
         address_coor_y,
       </if>
-      <if test="introduction != null">
+      <if test="introduction != null" >
         introduction,
       </if>
-      <if test="special != null">
+      <if test="special != null" >
         special,
       </if>
-      <if test="linkman != null">
+      <if test="linkman != null" >
         linkman,
       </if>
-      <if test="svrTel != null">
+      <if test="svrTel != null" >
         svr_tel,
       </if>
-      <if test="authStep != null">
+      <if test="authStep != null" >
         auth_step,
       </if>
-      <if test="comStat != null">
+      <if test="comStat != null" >
         com_stat,
       </if>
-      <if test="authReason != null">
+      <if test="authReason != null" >
         auth_reason,
       </if>
-      <if test="stat != null">
+      <if test="stat != null" >
         stat,
       </if>
-      <if test="clrAct != null">
+      <if test="clrAct != null" >
         clr_act,
       </if>
-      <if test="comMemo != null">
+      <if test="comMemo != null" >
         com_memo,
       </if>
-      <if test="createDate != null">
+      <if test="createDate != null" >
         create_date,
       </if>
+      <if test="licenseNo != null" >
+        license_no,
+      </if>
+      <if test="idCardNo != null" >
+        ID_card_no,
+      </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="recId != null">
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="recId != null" >
         #{recId,jdbcType=VARCHAR},
       </if>
-      <if test="cpyName != null">
+      <if test="cpyName != null" >
         #{cpyName,jdbcType=VARCHAR},
       </if>
-      <if test="industryCode != null">
+      <if test="industryCode != null" >
         #{industryCode,jdbcType=VARCHAR},
       </if>
-      <if test="areaCode != null">
+      <if test="areaCode != null" >
         #{areaCode,jdbcType=VARCHAR},
       </if>
-      <if test="categoryCode != null">
+      <if test="categoryCode != null" >
         #{categoryCode,jdbcType=VARCHAR},
       </if>
-      <if test="cpyLegalName != null">
+      <if test="cpyLegalName != null" >
         #{cpyLegalName,jdbcType=VARCHAR},
       </if>
-      <if test="cpyAddress != null">
+      <if test="cpyAddress != null" >
         #{cpyAddress,jdbcType=VARCHAR},
       </if>
-      <if test="addressCoorX != null">
+      <if test="addressCoorX != null" >
         #{addressCoorX,jdbcType=DECIMAL},
       </if>
-      <if test="addressCoorY != null">
+      <if test="addressCoorY != null" >
         #{addressCoorY,jdbcType=DECIMAL},
       </if>
-      <if test="introduction != null">
+      <if test="introduction != null" >
         #{introduction,jdbcType=VARCHAR},
       </if>
-      <if test="special != null">
+      <if test="special != null" >
         #{special,jdbcType=VARCHAR},
       </if>
-      <if test="linkman != null">
+      <if test="linkman != null" >
         #{linkman,jdbcType=VARCHAR},
       </if>
-      <if test="svrTel != null">
+      <if test="svrTel != null" >
         #{svrTel,jdbcType=VARCHAR},
       </if>
-      <if test="authStep != null">
+      <if test="authStep != null" >
         #{authStep,jdbcType=VARCHAR},
       </if>
-      <if test="comStat != null">
+      <if test="comStat != null" >
         #{comStat,jdbcType=VARCHAR},
       </if>
-      <if test="authReason != null">
+      <if test="authReason != null" >
         #{authReason,jdbcType=VARCHAR},
       </if>
-      <if test="stat != null">
+      <if test="stat != null" >
         #{stat,jdbcType=CHAR},
       </if>
-      <if test="clrAct != null">
+      <if test="clrAct != null" >
         #{clrAct,jdbcType=VARCHAR},
       </if>
-      <if test="comMemo != null">
+      <if test="comMemo != null" >
         #{comMemo,jdbcType=VARCHAR},
       </if>
-      <if test="createDate != null">
+      <if test="createDate != null" >
         #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="licenseNo != null" >
+        #{licenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardNo != null" >
+        #{idCardNo,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.mmnttech.ma.merchant.server.database.entity.MerchantExample" resultType="java.lang.Long">
+  <select id="countByExample" parameterType="com.mmnttech.ma.merchant.server.database.entity.MerchantExample" resultType="java.lang.Integer" >
     select count(*) from t_merchant
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+  <update id="updateByExampleSelective" parameterType="map" >
     update t_merchant
-    <set>
-      <if test="record.recId != null">
+    <set >
+      <if test="record.recId != null" >
         rec_id = #{record.recId,jdbcType=VARCHAR},
       </if>
-      <if test="record.cpyName != null">
+      <if test="record.cpyName != null" >
         cpy_name = #{record.cpyName,jdbcType=VARCHAR},
       </if>
-      <if test="record.industryCode != null">
+      <if test="record.industryCode != null" >
         industry_code = #{record.industryCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.areaCode != null">
+      <if test="record.areaCode != null" >
         area_code = #{record.areaCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.categoryCode != null">
+      <if test="record.categoryCode != null" >
         category_code = #{record.categoryCode,jdbcType=VARCHAR},
       </if>
-      <if test="record.cpyLegalName != null">
+      <if test="record.cpyLegalName != null" >
         cpy_legal_name = #{record.cpyLegalName,jdbcType=VARCHAR},
       </if>
-      <if test="record.cpyAddress != null">
+      <if test="record.cpyAddress != null" >
         cpy_address = #{record.cpyAddress,jdbcType=VARCHAR},
       </if>
-      <if test="record.addressCoorX != null">
+      <if test="record.addressCoorX != null" >
         address_coor_x = #{record.addressCoorX,jdbcType=DECIMAL},
       </if>
-      <if test="record.addressCoorY != null">
+      <if test="record.addressCoorY != null" >
         address_coor_y = #{record.addressCoorY,jdbcType=DECIMAL},
       </if>
-      <if test="record.introduction != null">
+      <if test="record.introduction != null" >
         introduction = #{record.introduction,jdbcType=VARCHAR},
       </if>
-      <if test="record.special != null">
+      <if test="record.special != null" >
         special = #{record.special,jdbcType=VARCHAR},
       </if>
-      <if test="record.linkman != null">
+      <if test="record.linkman != null" >
         linkman = #{record.linkman,jdbcType=VARCHAR},
       </if>
-      <if test="record.svrTel != null">
+      <if test="record.svrTel != null" >
         svr_tel = #{record.svrTel,jdbcType=VARCHAR},
       </if>
-      <if test="record.authStep != null">
+      <if test="record.authStep != null" >
         auth_step = #{record.authStep,jdbcType=VARCHAR},
       </if>
-      <if test="record.comStat != null">
+      <if test="record.comStat != null" >
         com_stat = #{record.comStat,jdbcType=VARCHAR},
       </if>
-      <if test="record.authReason != null">
+      <if test="record.authReason != null" >
         auth_reason = #{record.authReason,jdbcType=VARCHAR},
       </if>
-      <if test="record.stat != null">
+      <if test="record.stat != null" >
         stat = #{record.stat,jdbcType=CHAR},
       </if>
-      <if test="record.clrAct != null">
+      <if test="record.clrAct != null" >
         clr_act = #{record.clrAct,jdbcType=VARCHAR},
       </if>
-      <if test="record.comMemo != null">
+      <if test="record.comMemo != null" >
         com_memo = #{record.comMemo,jdbcType=VARCHAR},
       </if>
-      <if test="record.createDate != null">
+      <if test="record.createDate != null" >
         create_date = #{record.createDate,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.licenseNo != null" >
+        license_no = #{record.licenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idCardNo != null" >
+        ID_card_no = #{record.idCardNo,jdbcType=VARCHAR},
+      </if>
     </set>
-    <if test="_parameter != null">
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map">
+  <update id="updateByExample" parameterType="map" >
     update t_merchant
     set rec_id = #{record.recId,jdbcType=VARCHAR},
       cpy_name = #{record.cpyName,jdbcType=VARCHAR},
@@ -354,75 +376,83 @@
       stat = #{record.stat,jdbcType=CHAR},
       clr_act = #{record.clrAct,jdbcType=VARCHAR},
       com_memo = #{record.comMemo,jdbcType=VARCHAR},
-      create_date = #{record.createDate,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      license_no = #{record.licenseNo,jdbcType=VARCHAR},
+      ID_card_no = #{record.idCardNo,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.mmnttech.ma.merchant.server.database.entity.Merchant">
+  <update id="updateByPrimaryKeySelective" parameterType="com.mmnttech.ma.merchant.server.database.entity.Merchant" >
     update t_merchant
-    <set>
-      <if test="cpyName != null">
+    <set >
+      <if test="cpyName != null" >
         cpy_name = #{cpyName,jdbcType=VARCHAR},
       </if>
-      <if test="industryCode != null">
+      <if test="industryCode != null" >
         industry_code = #{industryCode,jdbcType=VARCHAR},
       </if>
-      <if test="areaCode != null">
+      <if test="areaCode != null" >
         area_code = #{areaCode,jdbcType=VARCHAR},
       </if>
-      <if test="categoryCode != null">
+      <if test="categoryCode != null" >
         category_code = #{categoryCode,jdbcType=VARCHAR},
       </if>
-      <if test="cpyLegalName != null">
+      <if test="cpyLegalName != null" >
         cpy_legal_name = #{cpyLegalName,jdbcType=VARCHAR},
       </if>
-      <if test="cpyAddress != null">
+      <if test="cpyAddress != null" >
         cpy_address = #{cpyAddress,jdbcType=VARCHAR},
       </if>
-      <if test="addressCoorX != null">
+      <if test="addressCoorX != null" >
         address_coor_x = #{addressCoorX,jdbcType=DECIMAL},
       </if>
-      <if test="addressCoorY != null">
+      <if test="addressCoorY != null" >
         address_coor_y = #{addressCoorY,jdbcType=DECIMAL},
       </if>
-      <if test="introduction != null">
+      <if test="introduction != null" >
         introduction = #{introduction,jdbcType=VARCHAR},
       </if>
-      <if test="special != null">
+      <if test="special != null" >
         special = #{special,jdbcType=VARCHAR},
       </if>
-      <if test="linkman != null">
+      <if test="linkman != null" >
         linkman = #{linkman,jdbcType=VARCHAR},
       </if>
-      <if test="svrTel != null">
+      <if test="svrTel != null" >
         svr_tel = #{svrTel,jdbcType=VARCHAR},
       </if>
-      <if test="authStep != null">
+      <if test="authStep != null" >
         auth_step = #{authStep,jdbcType=VARCHAR},
       </if>
-      <if test="comStat != null">
+      <if test="comStat != null" >
         com_stat = #{comStat,jdbcType=VARCHAR},
       </if>
-      <if test="authReason != null">
+      <if test="authReason != null" >
         auth_reason = #{authReason,jdbcType=VARCHAR},
       </if>
-      <if test="stat != null">
+      <if test="stat != null" >
         stat = #{stat,jdbcType=CHAR},
       </if>
-      <if test="clrAct != null">
+      <if test="clrAct != null" >
         clr_act = #{clrAct,jdbcType=VARCHAR},
       </if>
-      <if test="comMemo != null">
+      <if test="comMemo != null" >
         com_memo = #{comMemo,jdbcType=VARCHAR},
       </if>
-      <if test="createDate != null">
+      <if test="createDate != null" >
         create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="licenseNo != null" >
+        license_no = #{licenseNo,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardNo != null" >
+        ID_card_no = #{idCardNo,jdbcType=VARCHAR},
       </if>
     </set>
     where rec_id = #{recId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.mmnttech.ma.merchant.server.database.entity.Merchant">
+  <update id="updateByPrimaryKey" parameterType="com.mmnttech.ma.merchant.server.database.entity.Merchant" >
     update t_merchant
     set cpy_name = #{cpyName,jdbcType=VARCHAR},
       industry_code = #{industryCode,jdbcType=VARCHAR},
@@ -442,7 +472,9 @@
       stat = #{stat,jdbcType=CHAR},
       clr_act = #{clrAct,jdbcType=VARCHAR},
       com_memo = #{comMemo,jdbcType=VARCHAR},
-      create_date = #{createDate,jdbcType=TIMESTAMP}
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      license_no = #{licenseNo,jdbcType=VARCHAR},
+      ID_card_no = #{idCardNo,jdbcType=VARCHAR}
     where rec_id = #{recId,jdbcType=VARCHAR}
   </update>
 </mapper>

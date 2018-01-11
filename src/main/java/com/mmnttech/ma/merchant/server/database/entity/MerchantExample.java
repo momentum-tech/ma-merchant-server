@@ -1475,6 +1475,146 @@ public class MerchantExample {
             addCriterion("create_date not between", value1, value2, "createDate");
             return (Criteria) this;
         }
+
+        public Criteria andLicenseNoIsNull() {
+            addCriterion("license_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLicenseNoIsNotNull() {
+            addCriterion("license_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLicenseNoEqualTo(String value) {
+            addCriterion("license_no =", value, "licenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andLicenseNoNotEqualTo(String value) {
+            addCriterion("license_no <>", value, "licenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andLicenseNoGreaterThan(String value) {
+            addCriterion("license_no >", value, "licenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andLicenseNoGreaterThanOrEqualTo(String value) {
+            addCriterion("license_no >=", value, "licenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andLicenseNoLessThan(String value) {
+            addCriterion("license_no <", value, "licenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andLicenseNoLessThanOrEqualTo(String value) {
+            addCriterion("license_no <=", value, "licenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andLicenseNoLike(String value) {
+            addCriterion("license_no like", value, "licenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andLicenseNoNotLike(String value) {
+            addCriterion("license_no not like", value, "licenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andLicenseNoIn(List<String> values) {
+            addCriterion("license_no in", values, "licenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andLicenseNoNotIn(List<String> values) {
+            addCriterion("license_no not in", values, "licenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andLicenseNoBetween(String value1, String value2) {
+            addCriterion("license_no between", value1, value2, "licenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andLicenseNoNotBetween(String value1, String value2) {
+            addCriterion("license_no not between", value1, value2, "licenseNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdCardNoIsNull() {
+            addCriterion("ID_card_no is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdCardNoIsNotNull() {
+            addCriterion("ID_card_no is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdCardNoEqualTo(String value) {
+            addCriterion("ID_card_no =", value, "idCardNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdCardNoNotEqualTo(String value) {
+            addCriterion("ID_card_no <>", value, "idCardNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdCardNoGreaterThan(String value) {
+            addCriterion("ID_card_no >", value, "idCardNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdCardNoGreaterThanOrEqualTo(String value) {
+            addCriterion("ID_card_no >=", value, "idCardNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdCardNoLessThan(String value) {
+            addCriterion("ID_card_no <", value, "idCardNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdCardNoLessThanOrEqualTo(String value) {
+            addCriterion("ID_card_no <=", value, "idCardNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdCardNoLike(String value) {
+            addCriterion("ID_card_no like", value, "idCardNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdCardNoNotLike(String value) {
+            addCriterion("ID_card_no not like", value, "idCardNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdCardNoIn(List<String> values) {
+            addCriterion("ID_card_no in", values, "idCardNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdCardNoNotIn(List<String> values) {
+            addCriterion("ID_card_no not in", values, "idCardNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdCardNoBetween(String value1, String value2) {
+            addCriterion("ID_card_no between", value1, value2, "idCardNo");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdCardNoNotBetween(String value1, String value2) {
+            addCriterion("ID_card_no not between", value1, value2, "idCardNo");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface MerchantMapper {
-    long countByExample(MerchantExample example);
+    int countByExample(MerchantExample example);
 
     int deleteByExample(MerchantExample example);
 

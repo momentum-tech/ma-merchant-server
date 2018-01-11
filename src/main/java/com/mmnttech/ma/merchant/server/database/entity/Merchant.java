@@ -44,6 +44,10 @@ public class Merchant {
 
     private Date createDate;
 
+    private String licenseNo;
+
+    private String idCardNo;
+
     public String getRecId() {
         return recId;
     }
@@ -202,5 +206,21 @@ public class Merchant {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getLicenseNo() {
+        return licenseNo;
+    }
+
+    public void setLicenseNo(String licenseNo) {
+        this.licenseNo = licenseNo == null ? null : licenseNo.trim();
+    }
+
+    public String getIdCardNo() {
+        return idCardNo;
+    }
+
+    public void setIdCardNo(String idCardNo) {
+        this.idCardNo = idCardNo == null ? null : idCardNo.trim();
     }
 }
