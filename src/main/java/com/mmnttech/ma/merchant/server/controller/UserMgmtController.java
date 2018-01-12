@@ -7,6 +7,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mmnttech.ma.merchant.server.model.Role;
+import com.mmnttech.ma.merchant.server.model.SvcUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
 import com.mmnttech.ma.merchant.server.common.entity.TreeMenuItem;
-import com.mmnttech.ma.merchant.server.database.entity.Role;
-import com.mmnttech.ma.merchant.server.database.entity.SvcUser;
 import com.mmnttech.ma.merchant.server.service.RoleService;
 import com.mmnttech.ma.merchant.server.service.SvcUserMgmtService;
 

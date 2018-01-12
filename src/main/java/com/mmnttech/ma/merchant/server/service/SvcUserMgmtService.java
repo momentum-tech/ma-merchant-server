@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.mmnttech.ma.merchant.server.mapper.MenuMapper;
+import com.mmnttech.ma.merchant.server.mapper.SvcUserMapper;
+import com.mmnttech.ma.merchant.server.model.Menu;
+import com.mmnttech.ma.merchant.server.model.SvcUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -16,14 +20,9 @@ import com.mmnttech.ma.merchant.server.common.entity.QueryEntity;
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
 import com.mmnttech.ma.merchant.server.common.entity.TreeMenuItem;
 import com.mmnttech.ma.merchant.server.common.entity.TreeNode;
-import com.mmnttech.ma.merchant.server.database.entity.Menu;
-import com.mmnttech.ma.merchant.server.database.entity.MenuExample;
-import com.mmnttech.ma.merchant.server.database.entity.SvcUser;
-import com.mmnttech.ma.merchant.server.database.entity.SvcUserExample;
-import com.mmnttech.ma.merchant.server.database.mappers.MenuMapper;
-import com.mmnttech.ma.merchant.server.database.mappers.SvcUserMapper;
 import com.mmnttech.ma.merchant.server.util.StringUtil;
 import com.mmnttech.ma.merchant.server.util.Validator;
+import tk.mybatis.mapper.entity.Example;
 
 /**
  * @类名 SvcUserMgmtService
@@ -38,23 +37,25 @@ import com.mmnttech.ma.merchant.server.util.Validator;
 @Service("svcUserMgmtService")
 public class SvcUserMgmtService {
 
+    @Autowired
+    private SvcUserMapper svcUserMapper;
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
-	@Autowired
-	private SvcUserMapper svcUserMapper;
 	
 	@Autowired
 	private MenuMapper menuMapper;
 	
 	public RtnMessage doLogin(SvcUser svcUser) {
 		RtnMessage rtnMsg = new RtnMessage();
-		
-		SvcUserExample svcUserExample = new SvcUserExample();
-		svcUserExample.createCriteria().andUserTelEqualTo(svcUser.getUserTel()).andUserPwdEqualTo(StringUtil.MD5(svcUser.getUserPwd()))
-			.andStatusEqualTo(CommonDictionary.TSvcUser.STATUS_NORMAL);
-		
-		List<SvcUser> records = svcUserMapper.selectByExample(svcUserExample);
+
+		Example example = new Example(SvcUser.class);
+		example.createCriteria()
+				.andEqualTo("user_tel",svcUser.getUserTel())
+				.andEqualTo("user_pwd",StringUtil.MD5(svcUser.getUserPwd()))
+				.andEqualTo("status",CommonDictionary.TSvcUser.STATUS_NORMAL);
+
+		List<SvcUser> records = svcUserMapper.selectByExample(example);
 		if(records != null && !records.isEmpty()) {
 			if(records.size() == 1) {
 				SvcUser record = records.get(0);
@@ -72,11 +73,13 @@ public class SvcUserMgmtService {
 	}
 	
 	public SvcUser querySvcUser(SvcUser svcUser) {
-		SvcUserExample svcUserExample = new SvcUserExample();
-		svcUserExample.createCriteria().andUserIdEqualTo(svcUser.getUserId())
-			.andStatusEqualTo(CommonDictionary.TSvcUser.STATUS_NORMAL);
+
+		Example example = new Example(SvcUser.class);
+		example.createCriteria()
+				.andEqualTo("user_id",svcUser.getUserId())
+				.andEqualTo("status",CommonDictionary.TSvcUser.STATUS_NORMAL);
 		
-		List<SvcUser> svcUserLst = svcUserMapper.selectByExample(svcUserExample);
+		List<SvcUser> svcUserLst = svcUserMapper.selectByExample(example);
 		if(svcUserLst != null && svcUserLst.size() > 0) {
 			return svcUserLst.get(0);
 		}
@@ -173,12 +176,12 @@ public class SvcUserMgmtService {
 				menuGroupIdLst.add(String.valueOf(menuGroup.get("rec_id")));
 				menuGroupMap.put(String.valueOf(menuGroup.get("rec_id")), paymentTMI);
 			}
+
+			Example example = new Example(Menu.class);
+			example.createCriteria().andIn("menu_group_id",menuGroupIdLst);
+			example.setOrderByClause("squence");
 			
-			MenuExample menuExample = new MenuExample();
-			menuExample.createCriteria().andMenuGroupIdIn(menuGroupIdLst);
-			menuExample.setOrderByClause("sequence");
-			
-			List<Menu> menuLst = menuMapper.selectByExample(menuExample);
+			List<Menu> menuLst = menuMapper.selectByExample(example);
 			for(Menu menu : menuLst) {
 				TreeNode treeNode = new TreeNode();
 				treeNode.setLabel(menu.getName());

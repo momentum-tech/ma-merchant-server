@@ -5,9 +5,21 @@ spring:
     username: ma_db_tourism
     password: 123456
 
+mapper:
+    mappers:
+        - com.mmnttech.ma.merchant.server.util.BaseMapper
+    not-empty: false
+    identity: MYSQL
+
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql
+
 mybatis:
     mapperLocations: classpath:mapper/*.xml
-    typeAliasesPackage: com.mmnttech.ma.merchant.server.database.mappers
+    typeAliasesPackage: com.mmnttech.ma.merchant.server.model
     
 jedis :
   pool :

@@ -2,8 +2,8 @@ package com.mmnttech.ma.merchant.server.controller;
 
 import com.mmnttech.ma.merchant.server.common.dto.MerchantDto;
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
-import com.mmnttech.ma.merchant.server.database.entity.Merchant;
-import com.mmnttech.ma.merchant.server.database.entity.SvcUser;
+import com.mmnttech.ma.merchant.server.model.Merchant;
+import com.mmnttech.ma.merchant.server.model.SvcUser;
 import com.mmnttech.ma.merchant.server.service.MerchantService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -160,4 +160,18 @@ public class MerchantController {
         }
         return rtnMessage;
     }
+
+	@RequestMapping(method = RequestMethod.GET)
+	public RtnMessage findCertification(@RequestParam String key) {
+		RtnMessage rtnMessage = new RtnMessage();
+		try {
+			rtnMessage.setRtnObj(merchantService.findByPrimaryKey(key));
+			rtnMessage.setIsSuccess(true);
+		} catch (Exception e) {
+			logger.error("findCertification出现异常:", e);
+			rtnMessage.setIsSuccess(false);
+			rtnMessage.setMessage("查询诚信商户认证信息失败，请稍后再试");
+		}
+		return rtnMessage;
+	}
 }

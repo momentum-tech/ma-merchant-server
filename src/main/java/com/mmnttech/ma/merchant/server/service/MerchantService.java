@@ -2,8 +2,8 @@ package com.mmnttech.ma.merchant.server.service;
 
 import com.mmnttech.ma.merchant.server.common.dto.MerchantDto;
 import com.mmnttech.ma.merchant.server.common.exception.DatabaseException;
-import com.mmnttech.ma.merchant.server.database.entity.Merchant;
-import com.mmnttech.ma.merchant.server.database.mappers.MerchantMapper;
+import com.mmnttech.ma.merchant.server.mapper.MerchantMapper;
+import com.mmnttech.ma.merchant.server.model.Merchant;
 import com.mmnttech.ma.merchant.server.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,6 +24,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("merchantService")
 public class MerchantService {
 
+    @Autowired
     private MerchantMapper merchantMapper;
 
     @Autowired
@@ -42,6 +43,13 @@ public class MerchantService {
         MerchantDto curMerchant = new MerchantDto();
         curMerchant.setMerchant(merchantMapper.selectByPrimaryKey(merchant.getRecId()));
         curMerchant.setAttachList(attachService.findByMasterId(merchant.getRecId()));
+        return curMerchant;
+    }
+
+    public MerchantDto findByPrimaryKey(String key){
+        MerchantDto curMerchant = new MerchantDto();
+        curMerchant.setMerchant(merchantMapper.selectByPrimaryKey(key));
+        curMerchant.setAttachList(attachService.findByMasterId(key));
         return curMerchant;
     }
 
