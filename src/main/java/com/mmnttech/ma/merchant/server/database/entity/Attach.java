@@ -1,5 +1,7 @@
 package com.mmnttech.ma.merchant.server.database.entity;
 
+import com.mmnttech.ma.merchant.server.util.StringUtil;
+
 import java.util.Date;
 
 public class Attach {
@@ -18,6 +20,15 @@ public class Attach {
     private String comMemo;
 
     private Date createDate;
+
+    public Attach(String masterId, String name, String type, String attachUrl, String comMemo) {
+        this.recId = StringUtil.getUUID();
+        this.masterId = masterId;
+        this.name = name;
+        this.type = type;
+        this.attachUrl = attachUrl;
+        this.comMemo = comMemo;
+    }
 
     public String getRecId() {
         return recId;

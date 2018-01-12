@@ -2,8 +2,9 @@ package com.mmnttech.ma.merchant.server.database.mappers;
 
 import com.mmnttech.ma.merchant.server.database.entity.AreaCode;
 import com.mmnttech.ma.merchant.server.database.entity.AreaCodeExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface AreaCodeMapper {
     long countByExample(AreaCodeExample example);

@@ -16,6 +16,10 @@ public class Merchant {
 
     private String cpyLegalName;
 
+    private String cpyLegalIdNo;
+
+    private String cpyLegalTel;
+
     private String cpyAddress;
 
     private BigDecimal addressCoorX;
@@ -190,6 +194,22 @@ public class Merchant {
 
     public void setClrAct(String clrAct) {
         this.clrAct = clrAct == null ? null : clrAct.trim();
+    }
+
+    public String getCpyLegalIdNo() {
+        return cpyLegalIdNo;
+    }
+
+    public void setCpyLegalIdNo(String cpyLegalIdNo) {
+        this.cpyLegalIdNo = cpyLegalIdNo;
+    }
+
+    public String getCpyLegalTel() {
+        return cpyLegalTel;
+    }
+
+    public void setCpyLegalTel(String cpyLegalTel) {
+        this.cpyLegalTel = cpyLegalTel;
     }
 
     public String getComMemo() {

@@ -1,21 +1,17 @@
 package com.mmnttech.ma.merchant.server.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.mmnttech.ma.merchant.server.common.entity.QueryEntity;
+import com.mmnttech.ma.merchant.server.common.dto.MerchantDto;
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
 import com.mmnttech.ma.merchant.server.database.entity.Merchant;
 import com.mmnttech.ma.merchant.server.database.entity.SvcUser;
 import com.mmnttech.ma.merchant.server.service.MerchantService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @类名 MerchantController
@@ -28,7 +24,8 @@ import com.mmnttech.ma.merchant.server.service.MerchantService;
  * 
  */
 
-@Controller
+@RestController
+@RequestMapping(value = "/v1/merchant")
 public class MerchantController {
 
 	@Autowired
@@ -38,8 +35,8 @@ public class MerchantController {
 	
 	//商户登录
 	@ResponseBody
-	@RequestMapping(value = "login")
-	public RtnMessage login(HttpServletRequest request, HttpServletResponse response,
+    @RequestMapping(value = "/login")
+    public RtnMessage login(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("svcUser") SvcUser svcUser) {
 		RtnMessage rtnMsg = new RtnMessage();
 		try {
@@ -57,8 +54,8 @@ public class MerchantController {
 
 	//商户注册
 	@ResponseBody
-	@RequestMapping(value = "register")
-	public RtnMessage register(HttpServletRequest request, HttpServletResponse response,
+    @RequestMapping(value = "/register")
+    public RtnMessage register(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("svcUser") SvcUser svcUser) {
 		RtnMessage rtnMsg = new RtnMessage();
 		try {
@@ -75,8 +72,8 @@ public class MerchantController {
 	
 	//商户密码修改
 	@ResponseBody
-	@RequestMapping(value = "passwd")
-	public RtnMessage passwd(HttpServletRequest request, HttpServletResponse response,
+    @RequestMapping(value = "/passwd")
+    public RtnMessage passwd(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("merchant") Merchant merchant) {
 		RtnMessage rtnMsg = new RtnMessage();
 		
@@ -94,8 +91,8 @@ public class MerchantController {
 	
 	//商户详细信息填写
 	@ResponseBody
-	@RequestMapping(value = "createDetailInfo")
-	public RtnMessage createDetailInfo(HttpServletRequest request, HttpServletResponse response,
+    @RequestMapping(value = "/createDetailInfo")
+    public RtnMessage createDetailInfo(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("merchant") Merchant merchant) {
 		RtnMessage rtnMsg = new RtnMessage();
 
@@ -114,8 +111,8 @@ public class MerchantController {
 
 	//商户审核过程查询
 	@ResponseBody
-	@RequestMapping(value = "queryProgressInfo")
-	public RtnMessage queryProgressInfo(HttpServletRequest request, HttpServletResponse response,
+    @RequestMapping(value = "/queryProgressInfo")
+    public RtnMessage queryProgressInfo(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("merchant") Merchant merchant) {
 		RtnMessage rtnMsg = new RtnMessage();
 
@@ -133,8 +130,8 @@ public class MerchantController {
 	
 	//获取商户诚信二维码信息
 	@ResponseBody
-	@RequestMapping(value = "queryMerchantQRImage")
-	public RtnMessage queryMerchantQRImage(HttpServletRequest request, HttpServletResponse response,
+    @RequestMapping(value = "/queryMerchantQRImage")
+    public RtnMessage queryMerchantQRImage(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("merchant") Merchant merchant) {
 		RtnMessage rtnMsg = new RtnMessage();
 
@@ -149,4 +146,18 @@ public class MerchantController {
 		
 		return rtnMsg;
 	}
+
+    @RequestMapping(method = RequestMethod.POST)
+    public RtnMessage postCertification(@RequestBody MerchantDto merchantDto) {
+        RtnMessage rtnMessage = new RtnMessage();
+        try {
+            rtnMessage.setRtnObj(merchantService.create(merchantDto));
+            rtnMessage.setIsSuccess(true);
+        } catch (Exception e) {
+            logger.error("postCertification出现异常:", e);
+            rtnMessage.setIsSuccess(false);
+            rtnMessage.setMessage("提交诚信商户认证信息失败，请稍后再试");
+        }
+        return rtnMessage;
+    }
 }

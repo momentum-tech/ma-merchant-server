@@ -1,6 +1,13 @@
 package com.mmnttech.ma.merchant.server.service;
 
+import com.mmnttech.ma.merchant.server.common.dto.MerchantDto;
+import com.mmnttech.ma.merchant.server.common.exception.DatabaseException;
+import com.mmnttech.ma.merchant.server.database.entity.Merchant;
+import com.mmnttech.ma.merchant.server.database.mappers.MerchantMapper;
+import com.mmnttech.ma.merchant.server.util.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @类名 MerchantService
@@ -13,7 +20,29 @@ import org.springframework.stereotype.Service;
  * 
  */
 
+@Transactional(rollbackFor = DatabaseException.class)
 @Service("merchantService")
 public class MerchantService {
+
+    private MerchantMapper merchantMapper;
+
+    @Autowired
+    private AttachService attachService;
+
+    public MerchantDto create(MerchantDto merchantDto) {
+        Merchant merchant = merchantDto.getMerchant();
+        merchant.setRecId(StringUtil.getUUID());
+        if (merchantMapper.insert(merchant) == 1) {
+            if (!attachService.createAll(merchantDto.getAttachList(), merchant.getRecId())) {
+                throw new DatabaseException("error.merchant.insert");
+            }
+        } else {
+            throw new DatabaseException("error.merchant.insert");
+        }
+        MerchantDto curMerchant = new MerchantDto();
+        curMerchant.setMerchant(merchantMapper.selectByPrimaryKey(merchant.getRecId()));
+        curMerchant.setAttachList(attachService.findByMasterId(merchant.getRecId()));
+        return curMerchant;
+    }
 
 }
