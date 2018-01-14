@@ -41,7 +41,7 @@ public class MerchantService {
             throw new DatabaseException("error.merchant.insert");
         }
         MerchantDto curMerchant = new MerchantDto();
-        curMerchant.setMerchant(merchantMapper.selectByPrimaryKey(merchant.getRecId()));
+        curMerchant.setMerchant(merchant);
         curMerchant.setAttachList(attachService.findByMasterId(merchant.getRecId()));
         return curMerchant;
     }

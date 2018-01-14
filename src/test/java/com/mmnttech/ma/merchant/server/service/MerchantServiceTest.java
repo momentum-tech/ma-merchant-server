@@ -123,4 +123,30 @@ public class MerchantServiceTest {
         expectedException.expectMessage("error.merchant.insert");
         MerchantDto merchantDto = merchantService.createMerchant(exceptedObj);
     }
+
+    @Test
+    public void test2query1() {
+        String queryId = "id";
+        MerchantDto exceptedObj = setValue();
+        when(merchantMapper.selectByPrimaryKey(queryId)).thenReturn(exceptedObj.getMerchant());
+        Merchant merchant = merchantService.queryMerchantById(queryId);
+        Assert.assertEquals(exceptedObj.getMerchant().getComMemo(), merchant.getComMemo());
+        Assert.assertEquals(exceptedObj.getMerchant().getAuthStep(), merchant.getAuthStep());
+        Assert.assertEquals(exceptedObj.getMerchant().getCategoryCode(), merchant.getCategoryCode());
+    }
+
+    @Test
+    public void test2query2() {
+        String queryId = "id";
+        MerchantDto exceptedObj = setValue();
+        when(merchantMapper.selectByPrimaryKey(queryId)).thenReturn(exceptedObj.getMerchant());
+        when(attachService.findByMasterId(queryId)).thenReturn(exceptedObj.getAttachList());
+        MerchantDto merchantDto = merchantService.queryMerchantDetailInfoById(queryId);
+        Assert.assertEquals(exceptedObj.getMerchant().getAddressCoorX(), merchantDto.getMerchant().getAddressCoorX());
+        Assert.assertEquals(exceptedObj.getMerchant().getComMemo(), merchantDto.getMerchant().getComMemo());
+        for (int i = 0; i < 5; i++) {
+            Assert.assertEquals(exceptedObj.getAttachList().get(i).getAttachUrl(), merchantDto.getAttachList().get(i).getAttachUrl());
+            Assert.assertEquals(exceptedObj.getAttachList().get(i).getType(), merchantDto.getAttachList().get(i).getType());
+        }
+    }
 }

@@ -1,14 +1,5 @@
 package com.mmnttech.ma.merchant.server.service;
 
-import java.util.Date;
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import tk.mybatis.mapper.entity.Example;
-
 import com.mmnttech.ma.merchant.server.common.entity.CommonDictionary;
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
 import com.mmnttech.ma.merchant.server.mapper.MerchantUserMapper;
@@ -17,6 +8,13 @@ import com.mmnttech.ma.merchant.server.model.MerchantUser;
 import com.mmnttech.ma.merchant.server.model.Role;
 import com.mmnttech.ma.merchant.server.model.SvcUser;
 import com.mmnttech.ma.merchant.server.util.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import tk.mybatis.mapper.entity.Example;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * @类名 MerchantUserService
@@ -84,10 +82,10 @@ public class MerchantUserService {
 			} else {
 				merchantUser.setUserId(StringUtil.getUUID());
 				merchantUser.setCreateDate(new Date());
-				merchantUser.setRoleInfo(role.getRecId());
-				
-				merchantUserMapper.insert(merchantUser);
-			}
+                merchantUser.setRoleId(role.getRecId());
+
+                merchantUserMapper.insert(merchantUser);
+            }
 		} else {
 			rtnMsg.setIsSuccess(false);
 			rtnMsg.setMessage("注册错误:还未配置商户角色信息，无法注册商户");
