@@ -7,8 +7,6 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.mmnttech.ma.merchant.server.model.Role;
-import com.mmnttech.ma.merchant.server.model.SvcUser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +17,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
 import com.mmnttech.ma.merchant.server.common.entity.TreeMenuItem;
+import com.mmnttech.ma.merchant.server.model.Merchant;
+import com.mmnttech.ma.merchant.server.model.MerchantUser;
+import com.mmnttech.ma.merchant.server.model.Role;
+import com.mmnttech.ma.merchant.server.model.SvcUser;
+import com.mmnttech.ma.merchant.server.service.MerchantService;
+import com.mmnttech.ma.merchant.server.service.MerchantUserService;
 import com.mmnttech.ma.merchant.server.service.RoleService;
 import com.mmnttech.ma.merchant.server.service.SvcUserMgmtService;
 
@@ -41,23 +45,31 @@ public class UserMgmtController {
 	private SvcUserMgmtService svcUserMgmtService;
 	
 	@Autowired
+	private MerchantUserService merchantUserService;
+	
+	@Autowired
+	private MerchantService merchantService;
+	
+	@Autowired
 	private RoleService roleService;
 	
 	//用于查询用户基础信息，之后也可以用于用户的鉴权
 	@ResponseBody
 	@RequestMapping(value = "queryUserBaseInfo")
 	public RtnMessage queryUserBaseInfo(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("user") SvcUser svcUser) {
+			@ModelAttribute("merchantUser") MerchantUser merchantUser) {
 		RtnMessage rtnMsg = new RtnMessage();
 		try {
-			SvcUser record = svcUserMgmtService.querySvcUser(svcUser);
+			MerchantUser record = merchantUserService.queryMerchanteUser(merchantUser);
 			if(record != null) {
-				Role role = roleService.queryRoleById(record.getRoleId());
+				Role role = roleService.queryMerchanteRoleInfo();
+				Merchant merchant = merchantService.queryMerchantById(record.getMerchantId());
+				
 				String treeNodeId = request.getParameter("treeNodeId");
 				
 				Map<String, Object> userBaseInfo = new HashMap<String, Object>();
 				
-				List<TreeMenuItem> datas = svcUserMgmtService.queryUserTreeMenuItem(record.getRoleId(), treeNodeId, record.getAuthStatus());
+				List<TreeMenuItem> datas = svcUserMgmtService.queryUserTreeMenuItem(role.getRecId(), treeNodeId, merchant.getComStat());
 				userBaseInfo.put("menuInfo", datas);
 				userBaseInfo.put("roleInfo", role.getName() + "(" + role.getPlatform() + ")");
 				

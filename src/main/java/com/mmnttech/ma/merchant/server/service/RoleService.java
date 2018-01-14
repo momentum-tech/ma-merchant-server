@@ -5,22 +5,23 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import tk.mybatis.mapper.entity.Example;
+
+import com.mmnttech.ma.merchant.server.common.entity.QueryEntity;
+import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
 import com.mmnttech.ma.merchant.server.mapper.MenuGroupMapper;
 import com.mmnttech.ma.merchant.server.mapper.RoleMapper;
 import com.mmnttech.ma.merchant.server.mapper.RoleMenuGroupMapper;
 import com.mmnttech.ma.merchant.server.model.MenuGroup;
 import com.mmnttech.ma.merchant.server.model.Role;
 import com.mmnttech.ma.merchant.server.model.RoleMenuGroup;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.mmnttech.ma.merchant.server.common.entity.QueryEntity;
-import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
 import com.mmnttech.ma.merchant.server.util.StringUtil;
 import com.mmnttech.ma.merchant.server.util.Validator;
-import tk.mybatis.mapper.entity.Example;
 
 /**
  * @类名 RoleService
@@ -69,6 +70,18 @@ public class RoleService {
 	
 	public Role queryRoleById(String roleId) {
 		return roleMapper.selectByPrimaryKey(roleId);
+	}
+	
+	public Role queryMerchanteRoleInfo() {
+		Example example = new Example(Role.class);
+		example.createCriteria()
+				.andEqualTo("name", "商户")
+				.andEqualTo("platform", "商户认证平台");
+		List<Role> roleLst = roleMapper.selectByExample(example);
+		if(roleLst != null && !roleLst.isEmpty()) {
+			return roleLst.get(0);
+		}
+		return null;
 	}
 	
 	public RtnMessage createRole(Role role) {
