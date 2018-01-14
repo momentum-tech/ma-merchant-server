@@ -47,8 +47,8 @@ public class MerchantUserService {
 
 		Example example = new Example(SvcUser.class);
 		example.createCriteria()
-				.andEqualTo("user_tel",merchantUser.getUserTel())
-				.andEqualTo("user_pwd",StringUtil.MD5(merchantUser.getUserPwd()))
+				.andEqualTo("userTel",merchantUser.getUserTel())
+				.andEqualTo("userPwd",StringUtil.MD5(merchantUser.getUserPwd()))
 				.andEqualTo("status",CommonDictionary.TSvcUser.STATUS_NORMAL);
 
 		List<MerchantUser> records = merchantUserMapper.selectByExample(example);
@@ -116,7 +116,7 @@ public class MerchantUserService {
 	public MerchantUser queryMerchanteUser(MerchantUser merchantUser) {
 		Example example = new Example(SvcUser.class);
 		example.createCriteria()
-				.andEqualTo("user_id",merchantUser.getUserId())
+				.andEqualTo("userId",merchantUser.getUserId())
 				.andEqualTo("status",CommonDictionary.TSvcUser.STATUS_NORMAL);
 		
 		List<MerchantUser> merchantUserLst = merchantUserMapper.selectByExample(example);

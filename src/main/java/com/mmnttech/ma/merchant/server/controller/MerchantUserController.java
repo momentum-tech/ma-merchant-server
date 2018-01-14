@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
+import com.mmnttech.ma.merchant.server.model.Merchant;
 import com.mmnttech.ma.merchant.server.model.MerchantUser;
 import com.mmnttech.ma.merchant.server.service.MerchantUserService;
 import com.mmnttech.ma.merchant.server.service.RoleService;
@@ -27,6 +28,7 @@ import com.mmnttech.ma.merchant.server.service.RoleService;
  * 
  */
 @Controller
+@RequestMapping(value = "/v1/merchantUser/")
 public class MerchantUserController {
 	
 	private Logger logger = LoggerFactory.getLogger(MerchantUserController.class);
@@ -79,6 +81,27 @@ public class MerchantUserController {
 			rtnMsg.setIsSuccess(false);
 			rtnMsg.setMessage(RtnMessage.ERROR_REGISTER_2);
 		}
+		return rtnMsg;
+	}
+	
+
+	
+	//商户密码修改
+	@ResponseBody
+    @RequestMapping(value = "passwd")
+    public RtnMessage passwd(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute("merchant") Merchant merchant) {
+		RtnMessage rtnMsg = new RtnMessage();
+		
+		try {
+			//TODO
+			
+		} catch (Exception e) {
+			logger.error("passwd 出现异常：", e);
+			rtnMsg.setIsSuccess(false);
+			rtnMsg.setMessage("修改密码异常：请稍后再试");
+		}
+		
 		return rtnMsg;
 	}
 	

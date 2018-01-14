@@ -52,8 +52,8 @@ public class SvcUserMgmtService {
 
 		Example example = new Example(SvcUser.class);
 		example.createCriteria()
-				.andEqualTo("user_tel",svcUser.getUserTel())
-				.andEqualTo("user_pwd",StringUtil.MD5(svcUser.getUserPwd()))
+				.andEqualTo("userTel",svcUser.getUserTel())
+				.andEqualTo("userPwd",StringUtil.MD5(svcUser.getUserPwd()))
 				.andEqualTo("status",CommonDictionary.TSvcUser.STATUS_NORMAL);
 
 		List<SvcUser> records = svcUserMapper.selectByExample(example);
@@ -77,7 +77,7 @@ public class SvcUserMgmtService {
 
 		Example example = new Example(SvcUser.class);
 		example.createCriteria()
-				.andEqualTo("user_id",svcUser.getUserId())
+				.andEqualTo("userId",svcUser.getUserId())
 				.andEqualTo("status",CommonDictionary.TSvcUser.STATUS_NORMAL);
 		
 		List<SvcUser> svcUserLst = svcUserMapper.selectByExample(example);
@@ -153,7 +153,7 @@ public class SvcUserMgmtService {
 		svcUserMapper.updateByPrimaryKeySelective(svcUser);
 	}
 	
-	public List<TreeMenuItem> queryUserTreeMenuItem(String roleId, String treeNodeId, String userAuthStatus) {
+	public List<TreeMenuItem> queryUserTreeMenuItem(String roleId, String treeNodeId, String comStatus) {
 		List<TreeMenuItem> records = new ArrayList<TreeMenuItem>();
 		Map<String, TreeMenuItem> menuGroupMap = new HashMap<String, TreeMenuItem>();
 		List<String> menuGroupIdLst = new ArrayList<String>();
@@ -179,8 +179,8 @@ public class SvcUserMgmtService {
 			}
 
 			Example example = new Example(Menu.class);
-			example.createCriteria().andIn("menu_group_id",menuGroupIdLst);
-			example.setOrderByClause("squence");
+			example.createCriteria().andIn("menuGroupId",menuGroupIdLst);
+			example.setOrderByClause("sequence");
 			
 			List<Menu> menuLst = menuMapper.selectByExample(example);
 			for(Menu menu : menuLst) {
@@ -196,15 +196,13 @@ public class SvcUserMgmtService {
 				TreeMenuItem paymentTMI = menuGroupMap.get(menu.getMenuGroupId());
 				
 				if("商户认证".equals(paymentTMI.getLabel())) {
-					if("1".equals(userAuthStatus) && "merchantAuthMgmt".equals(menu.getIdentity())) {
+					if("0".equals(comStatus) && "merchantAuthMgmt".equals(menu.getIdentity())) {
 						paymentTMI.addItem(treeNode);
-					} else if("2".equals(userAuthStatus) && "merchantProgressMgmt".equals(menu.getIdentity())) {
+					} else if("1".equals(comStatus) && "merchantInfoMgmt".equals(menu.getIdentity())) {
 						paymentTMI.addItem(treeNode);
-					} else if("3".equals(userAuthStatus) && "accountAuthMgmt".equals(menu.getIdentity())) {
+					} else if("2".equals(comStatus) && "merchantInfoMgmt".equals(menu.getIdentity())) {
 						paymentTMI.addItem(treeNode);
-					} else if("4".equals(userAuthStatus) && "merchantProgressMgmt".equals(menu.getIdentity())) {
-						paymentTMI.addItem(treeNode);
-					} else if("5".equals(userAuthStatus) && "merchantInfoMgmt".equals(menu.getIdentity())) {
+					} else if("3".equals(comStatus) && "merchantAuthMgmt".equals(menu.getIdentity())) {
 						paymentTMI.addItem(treeNode);
 					}
 				} else {

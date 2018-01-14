@@ -33,61 +33,6 @@ public class MerchantController {
 	
 	private Logger logger = LoggerFactory.getLogger(MerchantController.class);
 	
-	//商户登录
-	@ResponseBody
-    @RequestMapping(value = "/login")
-    public RtnMessage login(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("svcUser") SvcUser svcUser) {
-		RtnMessage rtnMsg = new RtnMessage();
-		try {
-			//TODO
-			
-		} catch (Exception e) {
-			logger.error("login 出现异常：", e);
-			rtnMsg.setIsSuccess(false);
-			rtnMsg.setMessage(RtnMessage.ERROR_LOGIN_1);
-		}
-		
-		return rtnMsg;
-	}
-	
-
-	//商户注册
-	@ResponseBody
-    @RequestMapping(value = "/register")
-    public RtnMessage register(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("svcUser") SvcUser svcUser) {
-		RtnMessage rtnMsg = new RtnMessage();
-		try {
-			//TODO
-			
-		} catch (Exception e) {
-			logger.error("register 出现异常：", e);
-			rtnMsg.setIsSuccess(false);
-			rtnMsg.setMessage("注册异常：请稍后再试");
-		}
-		
-		return rtnMsg;
-	}
-	
-	//商户密码修改
-	@ResponseBody
-    @RequestMapping(value = "/passwd")
-    public RtnMessage passwd(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("merchant") Merchant merchant) {
-		RtnMessage rtnMsg = new RtnMessage();
-		
-		try {
-			//TODO
-			
-		} catch (Exception e) {
-			logger.error("passwd 出现异常：", e);
-			rtnMsg.setIsSuccess(false);
-			rtnMsg.setMessage("修改密码异常：请稍后再试");
-		}
-		
-		return rtnMsg;
-	}
 	
 	//商户详细信息填写
 	@ResponseBody
