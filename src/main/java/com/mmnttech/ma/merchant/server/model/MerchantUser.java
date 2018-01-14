@@ -1,7 +1,9 @@
 package com.mmnttech.ma.merchant.server.model;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "t_merchant_user")
 public class MerchantUser {
@@ -26,8 +28,8 @@ public class MerchantUser {
 
     private String email;
 
-    @Column(name = "role_info")
-    private String roleInfo;
+    @Column(name = "role_id")
+    private String roleId;
 
     private String status;
 
@@ -133,17 +135,17 @@ public class MerchantUser {
     }
 
     /**
-     * @return role_info
+     * @return role_id
      */
-    public String getRoleInfo() {
-        return roleInfo;
+    public String getRoleId() {
+        return roleId;
     }
 
     /**
-     * @param roleInfo
+     * @param roleId
      */
-    public void setRoleInfo(String roleInfo) {
-        this.roleInfo = roleInfo;
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
     /**

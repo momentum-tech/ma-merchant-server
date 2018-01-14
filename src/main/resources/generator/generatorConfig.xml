@@ -29,6 +29,7 @@
 
         <table tableName="%">
             <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+            <domainObjectRenamingRule searchString="^T" replaceString=""/>
         </table>
     </context>
 </generatorConfiguration>
