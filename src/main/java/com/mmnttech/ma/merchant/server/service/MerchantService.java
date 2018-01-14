@@ -30,7 +30,7 @@ public class MerchantService {
     @Autowired
     private AttachService attachService;
 
-    public MerchantDto create(MerchantDto merchantDto) {
+    public MerchantDto createMerchant(MerchantDto merchantDto) {
         Merchant merchant = merchantDto.getMerchant();
         merchant.setRecId(StringUtil.getUUID());
         if (merchantMapper.insert(merchant) == 1) {
@@ -41,12 +41,12 @@ public class MerchantService {
             throw new DatabaseException("error.merchant.insert");
         }
         MerchantDto curMerchant = new MerchantDto();
-        curMerchant.setMerchant(merchantMapper.selectByPrimaryKey(merchant.getRecId()));
+        curMerchant.setMerchant(merchant);
         curMerchant.setAttachList(attachService.findByMasterId(merchant.getRecId()));
         return curMerchant;
     }
 
-    public MerchantDto findByPrimaryKey(String key){
+    public MerchantDto queryMerchantDetailInfoByRecId(String key) {
         MerchantDto curMerchant = new MerchantDto();
         curMerchant.setMerchant(merchantMapper.selectByPrimaryKey(key));
         curMerchant.setAttachList(attachService.findByMasterId(key));

@@ -42,5 +42,4 @@ nbdist/
 # system ignore
 .DS_Store
 Thumbs.db
-generatorConfig.xml
 /bin/

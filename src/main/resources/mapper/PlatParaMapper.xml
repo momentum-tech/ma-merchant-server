@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmnttech.ma.merchant.server.mapper.PlatParaMapper">
+    <resultMap id="BaseResultMap" type="com.mmnttech.ma.merchant.server.model.PlatPara">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="plat_no" jdbcType="VARCHAR" property="platNo"/>
+        <result column="plat_name" jdbcType="VARCHAR" property="platName"/>
+        <result column="plat_stat" jdbcType="CHAR" property="platStat"/>
+        <result column="plat_date" jdbcType="CHAR" property="platDate"/>
+        <result column="pre_date" jdbcType="CHAR" property="preDate"/>
+    </resultMap>
+</mapper>

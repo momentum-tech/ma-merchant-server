@@ -151,8 +151,8 @@ public class MerchantController {
     public RtnMessage postCertification(@RequestBody MerchantDto merchantDto) {
         RtnMessage rtnMessage = new RtnMessage();
         try {
-            rtnMessage.setRtnObj(merchantService.create(merchantDto));
-            rtnMessage.setIsSuccess(true);
+			rtnMessage.setRtnObj(merchantService.createMerchant(merchantDto));
+			rtnMessage.setIsSuccess(true);
         } catch (Exception e) {
             logger.error("postCertification出现异常:", e);
             rtnMessage.setIsSuccess(false);
@@ -165,7 +165,7 @@ public class MerchantController {
 	public RtnMessage findCertification(@RequestParam String key) {
 		RtnMessage rtnMessage = new RtnMessage();
 		try {
-			rtnMessage.setRtnObj(merchantService.findByPrimaryKey(key));
+			rtnMessage.setRtnObj(merchantService.queryMerchantDetailInfoByRecId(key));
 			rtnMessage.setIsSuccess(true);
 		} catch (Exception e) {
 			logger.error("findCertification出现异常:", e);
