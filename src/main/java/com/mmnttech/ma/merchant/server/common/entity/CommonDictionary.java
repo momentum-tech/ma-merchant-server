@@ -28,6 +28,11 @@ public class CommonDictionary {
 		
 		public static final String STAT_DISABLE = "0";
 		public static final String STAT_ENABLE = "1";
+		
+		public static final String COM_STAT_UNAUTHORIZED = "0";
+		public static final String COM_STAT_WAITING_4_AUTHORIZETION = "1";
+		public static final String COM_STAT_AUTHORIZETION_PASS = "2";
+		public static final String COM_STAT_AUTHORIZETION_DENY = "3";
 	}
 	
 	public class TSvcUser {
@@ -36,6 +41,12 @@ public class CommonDictionary {
 		
 		public static final String ROLE_INFO_ADMINISTRATOR = "1";
 		public static final String ROLE_INFO_OPERATRO = "2";
+	}
+	
+	public class TMerchant {
+		public static final String AUTH_STEP_1 = "1";
+		public static final String AUTH_STEP_2 = "2";
+		public static final String AUTH_STEP_3 = "3";
 	}
 	
 }

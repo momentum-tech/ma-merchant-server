@@ -1,7 +1,10 @@
 package com.mmnttech.ma.merchant.server.model;
 
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "t_menu")
 public class Menu {
