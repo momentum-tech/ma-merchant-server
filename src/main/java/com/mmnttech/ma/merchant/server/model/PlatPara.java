@@ -1,6 +1,8 @@
 package com.mmnttech.ma.merchant.server.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "t_plat_para")
 public class PlatPara {

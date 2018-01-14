@@ -2,10 +2,10 @@ package com.mmnttech.ma.merchant.server.common.dto;
 
 
 
+import java.util.List;
+
 import com.mmnttech.ma.merchant.server.model.Attach;
 import com.mmnttech.ma.merchant.server.model.Merchant;
-
-import java.util.List;
 
 /**
  * @author Stelo

@@ -2,7 +2,10 @@ package com.mmnttech.ma.merchant.server.model;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Table(name = "t_merchant")
 public class Merchant {

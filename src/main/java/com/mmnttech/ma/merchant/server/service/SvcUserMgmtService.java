@@ -7,22 +7,23 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.mmnttech.ma.merchant.server.mapper.MenuMapper;
-import com.mmnttech.ma.merchant.server.mapper.SvcUserMapper;
-import com.mmnttech.ma.merchant.server.model.Menu;
-import com.mmnttech.ma.merchant.server.model.SvcUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import tk.mybatis.mapper.entity.Example;
 
 import com.mmnttech.ma.merchant.server.common.entity.CommonDictionary;
 import com.mmnttech.ma.merchant.server.common.entity.QueryEntity;
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
 import com.mmnttech.ma.merchant.server.common.entity.TreeMenuItem;
 import com.mmnttech.ma.merchant.server.common.entity.TreeNode;
+import com.mmnttech.ma.merchant.server.mapper.MenuMapper;
+import com.mmnttech.ma.merchant.server.mapper.SvcUserMapper;
+import com.mmnttech.ma.merchant.server.model.Menu;
+import com.mmnttech.ma.merchant.server.model.SvcUser;
 import com.mmnttech.ma.merchant.server.util.StringUtil;
 import com.mmnttech.ma.merchant.server.util.Validator;
-import tk.mybatis.mapper.entity.Example;
 
 /**
  * @类名 SvcUserMgmtService
