@@ -5,8 +5,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
-@Table(name = "t_role_menu_group")
-public class RoleMenuGroup {
+@Table(name = "t_merchant_cert")
+public class MerchantCert {
     @Id
     @Column(name = "rec_id")
     private String recId;
@@ -14,8 +14,11 @@ public class RoleMenuGroup {
     @Column(name = "role_id")
     private String roleId;
 
-    @Column(name = "menu_group_id")
-    private String menuGroupId;
+    @Column(name = "industry_code")
+    private String industryCode;
+
+    @Column(name = "area_code")
+    private String areaCode;
 
     @Column(name = "create_date")
     private Date createDate;
@@ -49,17 +52,31 @@ public class RoleMenuGroup {
     }
 
     /**
-     * @return menu_group_id
+     * @return industry_code
      */
-    public String getMenuGroupId() {
-        return menuGroupId;
+    public String getIndustryCode() {
+        return industryCode;
     }
 
     /**
-     * @param menuGroupId
+     * @param industryCode
      */
-    public void setMenuGroupId(String menuGroupId) {
-        this.menuGroupId = menuGroupId;
+    public void setIndustryCode(String industryCode) {
+        this.industryCode = industryCode;
+    }
+
+    /**
+     * @return area_code
+     */
+    public String getAreaCode() {
+        return areaCode;
+    }
+
+    /**
+     * @param areaCode
+     */
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
     }
 
     /**

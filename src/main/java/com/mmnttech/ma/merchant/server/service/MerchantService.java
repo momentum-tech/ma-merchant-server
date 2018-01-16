@@ -4,10 +4,16 @@ import com.mmnttech.ma.merchant.server.common.dto.MerchantDto;
 import com.mmnttech.ma.merchant.server.common.exception.DatabaseException;
 import com.mmnttech.ma.merchant.server.mapper.MerchantMapper;
 import com.mmnttech.ma.merchant.server.model.Merchant;
+import com.mmnttech.ma.merchant.server.model.MerchantCert;
+import com.mmnttech.ma.merchant.server.model.Task;
 import com.mmnttech.ma.merchant.server.util.StringUtil;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @类名 MerchantService
@@ -24,11 +30,22 @@ import org.springframework.transaction.annotation.Transactional;
 @Service("merchantService")
 public class MerchantService {
 
+    protected static final String MerchantCertTaskType = "01";
+
     @Autowired
     private MerchantMapper merchantMapper;
 
     @Autowired
     private AttachService attachService;
+
+    @Autowired
+    private RoleService roleService;
+
+    @Autowired
+    private MerchantCertService merchantCertService;
+
+    @Autowired
+    private TaskService taskService;
 
     public MerchantDto createMerchant(MerchantDto merchantDto) {
         Merchant merchant = merchantDto.getMerchant();
@@ -40,6 +57,9 @@ public class MerchantService {
         } else {
             throw new DatabaseException("error.merchant.insert");
         }
+        if (!createMerchantCertTask(merchant)) {
+            throw new DatabaseException("error.task.insert");
+        }
         MerchantDto curMerchant = new MerchantDto();
         curMerchant.setMerchant(merchant);
         curMerchant.setAttachList(attachService.findByMasterId(merchant.getRecId()));
@@ -50,11 +70,32 @@ public class MerchantService {
     	return merchantMapper.selectByPrimaryKey(recId);
     }
 
-    public MerchantDto queryMerchantDetailInfoById(String key) {
+    public MerchantDto queryMerchantDetailInfoById(String recId) {
         MerchantDto curMerchant = new MerchantDto();
-        curMerchant.setMerchant(merchantMapper.selectByPrimaryKey(key));
-        curMerchant.setAttachList(attachService.findByMasterId(key));
+        curMerchant.setMerchant(merchantMapper.selectByPrimaryKey(recId));
+        curMerchant.setAttachList(attachService.findByMasterId(recId));
         return curMerchant;
+    }
+
+    public List<String> queryRecIdByCpyName(String cpyName) {
+        return merchantMapper.queryRecIdByCpyName(cpyName);
+    }
+
+    private Boolean createMerchantCertTask(Merchant merchant) {
+        List<MerchantCert> merchantCerts = merchantCertService.queryMerchantCertByAreaCodeAndIndustryCode(merchant.getAreaCode(), merchant.getIndustryCode());
+        List<Task> taskList = new LinkedList<>();
+        for (MerchantCert curMerchant : merchantCerts) {
+            Task task = new Task();
+            task.setType(MerchantCertTaskType);
+            task.setTaskDesc("诚信商户认证");
+            task.setRole(roleService.queryRoleById(curMerchant.getRoleId()).getRecId());
+            task.setData(JSONObject.fromObject(merchant).toString());
+            taskList.add(task);
+        }
+        if (!taskService.createTaskList(taskList).isEmpty()) {
+            return true;
+        }
+        return false;
     }
 
 }

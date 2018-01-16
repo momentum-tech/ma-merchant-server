@@ -1,19 +1,16 @@
 package com.mmnttech.ma.merchant.server.controller;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.mmnttech.ma.merchant.server.common.entity.QueryEntity;
+import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
+import com.mmnttech.ma.merchant.server.model.Complaint;
+import com.mmnttech.ma.merchant.server.service.ComplaintService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import com.mmnttech.ma.merchant.server.common.entity.QueryEntity;
-import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
-import com.mmnttech.ma.merchant.server.service.ComplaintService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * @类名 ComplaintController
@@ -26,7 +23,8 @@ import com.mmnttech.ma.merchant.server.service.ComplaintService;
  * 
  */
 
-@Controller
+@RestController
+@RequestMapping(value = "/v1/complaints")
 public class ComplaintController {
 
 	@Autowired
@@ -35,7 +33,6 @@ public class ComplaintController {
 	private Logger logger = LoggerFactory.getLogger(ComplaintController.class);
 	
 	//商户投诉查询
-	@ResponseBody
 	@RequestMapping(value = "queryComplaintInfos")
 	public RtnMessage queryComplaintInfos(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("queryEntity") QueryEntity queryEntity) {
@@ -51,5 +48,45 @@ public class ComplaintController {
 		
 		return rtnMsg;
 	}
-	
+
+    @RequestMapping(method = RequestMethod.GET)
+    public RtnMessage queryComplaintInfoByRecId(@ModelAttribute("queryEntity") QueryEntity queryEntity) {
+        RtnMessage rtnMessage = new RtnMessage();
+        try {
+            String recId = queryEntity.getRecId();
+            String merchantId = queryEntity.getMerchId();
+            String merchantName = queryEntity.getMerchName();
+            int page = queryEntity.getPage();
+            int size = queryEntity.getRows();
+            if (recId != null && recId != "") {
+                rtnMessage.setRtnObj(complaintService.queryComplaintByRecId(recId));
+            } else if (merchantId != null && merchantId != "") {
+                rtnMessage.setRtnObj(complaintService.queryComplaintByMerchantId(merchantId, page, size));
+            } else if (merchantName != null && merchantName != "") {
+                rtnMessage.setRtnObj(complaintService.queryComplaintByMerchantName(merchantName, page, size));
+            } else {
+                rtnMessage.setIsSuccess(false);
+                rtnMessage.setMessage("商户投诉查询：参数错误");
+            }
+        } catch (Exception e) {
+            logger.error("queryComplaintInfoByRecId 出现异常");
+            rtnMessage.setIsSuccess(false);
+            rtnMessage.setMessage("商户投诉查询：请稍后再试");
+        }
+        return rtnMessage;
+    }
+
+    @RequestMapping(value = "/filter", method = RequestMethod.GET)
+    public RtnMessage queryComplaintInfoByAnyCondition(@RequestBody Complaint complaint, @RequestParam("page") int page, @RequestParam("size") int size) {
+        RtnMessage rtnMessage = new RtnMessage();
+        try {
+            complaintService.queryComplaintByAnyCondition(complaint, page, size);
+        } catch (Exception e) {
+            logger.error("queryComplaintInfoByRecId 出现异常");
+            rtnMessage.setIsSuccess(false);
+            rtnMessage.setMessage("商户投诉查询：请稍后再试");
+        }
+        return rtnMessage;
+    }
+
 }

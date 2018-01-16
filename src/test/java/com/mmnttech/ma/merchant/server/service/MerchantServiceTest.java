@@ -9,8 +9,7 @@ import com.mmnttech.ma.merchant.server.BootApplication;
 import com.mmnttech.ma.merchant.server.common.dto.MerchantDto;
 import com.mmnttech.ma.merchant.server.common.exception.DatabaseException;
 import com.mmnttech.ma.merchant.server.mapper.MerchantMapper;
-import com.mmnttech.ma.merchant.server.model.Attach;
-import com.mmnttech.ma.merchant.server.model.Merchant;
+import com.mmnttech.ma.merchant.server.model.*;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
@@ -23,6 +22,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import static org.mockito.Mockito.*;
@@ -40,6 +40,15 @@ public class MerchantServiceTest {
 
     @Mock
     private AttachService attachService;
+
+    @Mock
+    private TaskService taskService;
+
+    @Mock
+    private MerchantCertService merchantCertService;
+
+    @Mock
+    private RoleService roleService;
 
     @Rule
     public ExpectedException expectedException = ExpectedException.none();
@@ -90,9 +99,18 @@ public class MerchantServiceTest {
     @Test
     public void test1create1() {
         MerchantDto exceptedObj = setValue();
+        List<Task> taskList = new LinkedList<>();
+        taskList.add(new Task());
+        List<MerchantCert> merchantCertList = new LinkedList<>();
+        MerchantCert merchantCert = new MerchantCert();
+        merchantCert.setRoleId("test");
+        merchantCertList.add(merchantCert);
         when(merchantMapper.insert(any(Merchant.class))).thenReturn(1);
         when(attachService.createAll(anyList(), anyString())).thenReturn(true);
         when(attachService.findByMasterId(anyString())).thenReturn(exceptedObj.getAttachList());
+        when(taskService.createTaskList(anyList())).thenReturn(taskList);
+        when(merchantCertService.queryMerchantCertByAreaCodeAndIndustryCode(anyString(), anyString())).thenReturn(merchantCertList);
+        when(roleService.queryRoleById(anyString())).thenReturn(new Role());
         MerchantDto merchantDto = merchantService.createMerchant(exceptedObj);
         Assert.assertEquals(exceptedObj.getMerchant().getAddressCoorX(), merchantDto.getMerchant().getAddressCoorX());
         Assert.assertEquals(exceptedObj.getMerchant().getComMemo(), merchantDto.getMerchant().getComMemo());
