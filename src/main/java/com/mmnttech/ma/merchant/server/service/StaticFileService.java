@@ -37,7 +37,7 @@ public class StaticFileService {
 	
 //	private String rootPath = "d:\\Pictures";
 	
-	private String rootPath = "/home/james/staticres/images";
+	private String rootPath = "/home/ubuntu/staticres/images";
 	
 	public static final String STATIC_IMAGE_PATH = "http://121.40.171.182/images/";
 	

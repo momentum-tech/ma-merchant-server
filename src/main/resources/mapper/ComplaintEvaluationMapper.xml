@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mmnttech.ma.merchant.server.mapper.ComplaintEvaluationMapper">
-    <resultMap id="BaseResultMap" type="com.mmnttech.ma.merchant.server.model.ComplaintEvaluation">
-        <!--
-          WARNING - @mbg.generated
-        -->
-        <id column="rec_id" jdbcType="VARCHAR" property="recId"/>
-        <result column="complaint_id" jdbcType="VARCHAR" property="complaintId"/>
-        <result column="evaluationer" jdbcType="VARCHAR" property="evaluationer"/>
-        <result column="origin" jdbcType="VARCHAR" property="origin"/>
-        <result column="step" jdbcType="VARCHAR" property="step"/>
-        <result column="message" jdbcType="VARCHAR" property="message"/>
-        <result column="evaluation" jdbcType="DECIMAL" property="evaluation"/>
-        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-    </resultMap>
+  <resultMap id="BaseResultMap" type="com.mmnttech.ma.merchant.server.model.ComplaintEvaluation">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="rec_id" jdbcType="VARCHAR" property="recId" />
+    <result column="complaint_id" jdbcType="VARCHAR" property="complaintId" />
+    <result column="evaluationer" jdbcType="VARCHAR" property="evaluationer" />
+    <result column="origin" jdbcType="VARCHAR" property="origin" />
+    <result column="step" jdbcType="VARCHAR" property="step" />
+    <result column="message" jdbcType="VARCHAR" property="message" />
+    <result column="evaluation" jdbcType="DECIMAL" property="evaluation" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
 </mapper>

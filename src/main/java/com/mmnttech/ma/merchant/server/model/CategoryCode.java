@@ -3,16 +3,16 @@ package com.mmnttech.ma.merchant.server.model;
 import java.util.Date;
 import javax.persistence.*;
 
-@Table(name = "t_industry_code")
-public class IndustryCode {
+@Table(name = "t_category_code")
+public class CategoryCode {
     @Id
     @Column(name = "rec_id")
     private String recId;
 
-    @Column(name = "industry_code")
-    private String industryCode;
+    @Column(name = "category_code")
+    private String categoryCode;
 
-    private String industry;
+    private String category;
 
     @Column(name = "com_memo")
     private String comMemo;
@@ -35,31 +35,31 @@ public class IndustryCode {
     }
 
     /**
-     * @return industry_code
+     * @return category_code
      */
-    public String getIndustryCode() {
-        return industryCode;
+    public String getCategoryCode() {
+        return categoryCode;
     }
 
     /**
-     * @param industryCode
+     * @param categoryCode
      */
-    public void setIndustryCode(String industryCode) {
-        this.industryCode = industryCode;
+    public void setCategoryCode(String categoryCode) {
+        this.categoryCode = categoryCode;
     }
 
     /**
-     * @return industry
+     * @return category
      */
-    public String getIndustry() {
-        return industry;
+    public String getCategory() {
+        return category;
     }
 
     /**
-     * @param industry
+     * @param category
      */
-    public void setIndustry(String industry) {
-        this.industry = industry;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     /**

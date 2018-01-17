@@ -46,4 +46,19 @@ public class StringUtil {
             return null;
         }
     }
+	
+	public static String fillZore(String value, int length) {
+		if(value.length() < length) {
+			int offset = length - value.length();
+			StringBuffer buffer = new StringBuffer();
+			for(int i = 0; i < offset; i ++) {
+				buffer.append("0");
+			}
+			
+			buffer.append(value);
+			return buffer.toString();
+		}
+		
+		return value;
+	}
 }

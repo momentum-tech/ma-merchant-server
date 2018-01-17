@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mmnttech.ma.merchant.server.mapper.MerchantCertMapper">
-    <resultMap id="BaseResultMap" type="com.mmnttech.ma.merchant.server.model.MerchantCert">
-        <!--
-          WARNING - @mbg.generated
-        -->
-        <id column="rec_id" jdbcType="VARCHAR" property="recId"/>
-        <result column="role_id" jdbcType="VARCHAR" property="roleId"/>
-        <result column="industry_code" jdbcType="VARCHAR" property="industryCode"/>
-        <result column="area_code" jdbcType="VARCHAR" property="areaCode"/>
-        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-    </resultMap>
+  <resultMap id="BaseResultMap" type="com.mmnttech.ma.merchant.server.model.MerchantCert">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="rec_id" jdbcType="VARCHAR" property="recId" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
+    <result column="industry_code" jdbcType="VARCHAR" property="industryCode" />
+    <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
 </mapper>

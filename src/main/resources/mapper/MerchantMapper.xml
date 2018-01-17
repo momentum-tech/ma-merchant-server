@@ -5,28 +5,28 @@
     <!--
       WARNING - @mbg.generated
     -->
-    <id column="rec_id" jdbcType="VARCHAR" property="recId"/>
-    <result column="cpy_name" jdbcType="VARCHAR" property="cpyName"/>
-    <result column="industry_code" jdbcType="VARCHAR" property="industryCode"/>
-    <result column="area_code" jdbcType="VARCHAR" property="areaCode"/>
-    <result column="category_code" jdbcType="VARCHAR" property="categoryCode"/>
-    <result column="cpy_legal_name" jdbcType="VARCHAR" property="cpyLegalName"/>
-    <result column="cpy_address" jdbcType="VARCHAR" property="cpyAddress"/>
-    <result column="address_coor_x" jdbcType="DECIMAL" property="addressCoorX"/>
-    <result column="address_coor_y" jdbcType="DECIMAL" property="addressCoorY"/>
-    <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
-    <result column="special" jdbcType="VARCHAR" property="special"/>
-    <result column="linkman" jdbcType="VARCHAR" property="linkman"/>
-    <result column="svr_tel" jdbcType="VARCHAR" property="svrTel"/>
-    <result column="auth_step" jdbcType="VARCHAR" property="authStep"/>
-    <result column="com_stat" jdbcType="VARCHAR" property="comStat"/>
-    <result column="auth_reason" jdbcType="VARCHAR" property="authReason"/>
-    <result column="stat" jdbcType="CHAR" property="stat"/>
-    <result column="clr_act" jdbcType="VARCHAR" property="clrAct"/>
-    <result column="com_memo" jdbcType="VARCHAR" property="comMemo"/>
-    <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-    <result column="license_no" jdbcType="VARCHAR" property="licenseNo"/>
-    <result column="ID_card_no" jdbcType="VARCHAR" property="idCardNo"/>
+    <id column="rec_id" jdbcType="VARCHAR" property="recId" />
+    <result column="cpy_name" jdbcType="VARCHAR" property="cpyName" />
+    <result column="industry_code" jdbcType="VARCHAR" property="industryCode" />
+    <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
+    <result column="category_code" jdbcType="VARCHAR" property="categoryCode" />
+    <result column="cpy_legal_name" jdbcType="VARCHAR" property="cpyLegalName" />
+    <result column="cpy_address" jdbcType="VARCHAR" property="cpyAddress" />
+    <result column="address_coor_x" jdbcType="DECIMAL" property="addressCoorX" />
+    <result column="address_coor_y" jdbcType="DECIMAL" property="addressCoorY" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="special" jdbcType="VARCHAR" property="special" />
+    <result column="linkman" jdbcType="VARCHAR" property="linkman" />
+    <result column="svr_tel" jdbcType="VARCHAR" property="svrTel" />
+    <result column="auth_step" jdbcType="VARCHAR" property="authStep" />
+    <result column="com_stat" jdbcType="VARCHAR" property="comStat" />
+    <result column="auth_reason" jdbcType="VARCHAR" property="authReason" />
+    <result column="stat" jdbcType="CHAR" property="stat" />
+    <result column="clr_act" jdbcType="VARCHAR" property="clrAct" />
+    <result column="com_memo" jdbcType="VARCHAR" property="comMemo" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="license_no" jdbcType="VARCHAR" property="licenseNo" />
+    <result column="ID_card_no" jdbcType="VARCHAR" property="idCardNo" />
   </resultMap>
 
   <select id="queryRecIdByCpyName" parameterType="String" resultType="String">

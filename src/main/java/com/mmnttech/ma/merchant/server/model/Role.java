@@ -1,9 +1,7 @@
 package com.mmnttech.ma.merchant.server.model;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Date;
+import javax.persistence.*;
 
 @Table(name = "t_role")
 public class Role {

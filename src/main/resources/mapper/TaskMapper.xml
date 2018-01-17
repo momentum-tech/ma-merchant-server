@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.mmnttech.ma.merchant.server.mapper.TaskMapper">
-    <resultMap id="BaseResultMap" type="com.mmnttech.ma.merchant.server.model.Task">
-        <!--
-          WARNING - @mbg.generated
-        -->
-        <id column="rec_id" jdbcType="VARCHAR" property="recId"/>
-        <result column="type" jdbcType="VARCHAR" property="type"/>
-        <result column="role" jdbcType="VARCHAR" property="role"/>
-        <result column="task_desc" jdbcType="VARCHAR" property="taskDesc"/>
-        <result column="data" jdbcType="VARCHAR" property="data"/>
-        <result column="operator" jdbcType="VARCHAR" property="operator"/>
-        <result column="status" jdbcType="CHAR" property="status"/>
-        <result column="create_date" jdbcType="TIMESTAMP" property="createDate"/>
-        <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime"/>
-        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
-    </resultMap>
+  <resultMap id="BaseResultMap" type="com.mmnttech.ma.merchant.server.model.Task">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="rec_id" jdbcType="VARCHAR" property="recId" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="task_desc" jdbcType="VARCHAR" property="taskDesc" />
+    <result column="data" jdbcType="VARCHAR" property="data" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="status" jdbcType="CHAR" property="status" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+  </resultMap>
 </mapper>

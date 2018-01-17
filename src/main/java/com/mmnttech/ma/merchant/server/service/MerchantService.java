@@ -1,14 +1,8 @@
 package com.mmnttech.ma.merchant.server.service;
 
-import com.mmnttech.ma.merchant.server.common.dto.MerchantDto;
-import com.mmnttech.ma.merchant.server.common.exception.DatabaseException;
-import com.mmnttech.ma.merchant.server.entity.MerchantAuth;
-import com.mmnttech.ma.merchant.server.mapper.MerchantMapper;
-import com.mmnttech.ma.merchant.server.model.Attach;
-import com.mmnttech.ma.merchant.server.model.Merchant;
-import com.mmnttech.ma.merchant.server.model.MerchantCert;
-import com.mmnttech.ma.merchant.server.model.Task;
-import com.mmnttech.ma.merchant.server.util.StringUtil;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import net.sf.json.JSONObject;
 
@@ -16,8 +10,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
-import java.util.List;
+import com.mmnttech.ma.merchant.server.common.dto.MerchantDto;
+import com.mmnttech.ma.merchant.server.common.entity.DictionaryConst;
+import com.mmnttech.ma.merchant.server.common.exception.DatabaseException;
+import com.mmnttech.ma.merchant.server.entity.MerchantAuth;
+import com.mmnttech.ma.merchant.server.mapper.AttachMapper;
+import com.mmnttech.ma.merchant.server.mapper.MerchantMapper;
+import com.mmnttech.ma.merchant.server.model.Attach;
+import com.mmnttech.ma.merchant.server.model.Merchant;
+import com.mmnttech.ma.merchant.server.model.MerchantCert;
+import com.mmnttech.ma.merchant.server.model.Task;
+import com.mmnttech.ma.merchant.server.util.StringUtil;
 
 /**
  * @类名 MerchantService
@@ -41,6 +44,9 @@ public class MerchantService {
 
     @Autowired
     private AttachService attachService;
+    
+    @Autowired
+    private AttachMapper attachMapper;
 
     @Autowired
     private RoleService roleService;
@@ -102,7 +108,21 @@ public class MerchantService {
         return false;
     }
 
+    @Transactional
 	public void txMerchantAuth(MerchantAuth merchantAuth, List<Attach> attachLst) {
+		merchantAuth.setRecId(StringUtil.getUUID());
+		merchantAuth.setCreateDate(new Date());
+		merchantAuth.setComStat(DictionaryConst.Common.COM_STAT_WAITING_4_AUTHORIZETION);
+		
+		merchantMapper.insert(merchantAuth);
+		
+		for(Attach record : attachLst) {
+			record.setRecId(StringUtil.getUUID());
+			record.setCreateDate(new Date());
+			record.setMasterId(merchantAuth.getRecId());
+			
+			attachMapper.insert(record);
+		}
 		
 	}
 

@@ -1,6 +1,7 @@
 package com.mmnttech.ma.merchant.server.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +22,11 @@ import redis.clients.jedis.JedisPool;
 
 import com.mmnttech.ma.merchant.server.common.entity.QueryEntity;
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
+import com.mmnttech.ma.merchant.server.mapper.CategoryCodeMapper;
+import com.mmnttech.ma.merchant.server.mapper.IndustryCodeMapper;
+import com.mmnttech.ma.merchant.server.model.CategoryCode;
+import com.mmnttech.ma.merchant.server.model.IndustryCode;
+import com.mmnttech.ma.merchant.server.util.StringUtil;
 
 /**
  * @类名 CommonController
@@ -39,6 +45,12 @@ public class CommonController {
 	
 	@Autowired
 	private JedisPool jedisPool;
+	
+	@Autowired
+	private IndustryCodeMapper industryCodeMapper;
+	
+	@Autowired
+	private CategoryCodeMapper categoryCodeMapper;
 
 	@ResponseBody
 	@RequestMapping(value = "queryIndustyInfos")
@@ -121,38 +133,23 @@ public class CommonController {
 		try {
 			jedis = jedisPool.getResource();
 			
-			jedis.del("category02");
-			
-			jedis.rpush("category02", "21|民宿");
-			jedis.rpush("category02", "22|短租");
-			jedis.rpush("category02", "23|快捷酒店");
-			jedis.rpush("category02", "24|客栈");
-			jedis.rpush("category02", "25|公寓");
-			jedis.rpush("category02", "26|户外营地");
-			jedis.rpush("category02", "27|招待所");
-			jedis.rpush("category02", "28|农家乐");
-			jedis.rpush("category02", "29|五星级酒店");
-			jedis.rpush("category02", "30|四星级酒店");
-			jedis.rpush("category02", "31|三星级酒店");
-			jedis.rpush("category02", "32|二星级酒店");
-			jedis.rpush("category02", "33|一星级酒店");
-
-			
-			jedis.del("category03");
-
-			jedis.rpush("category03", "31|自驾");
-			jedis.rpush("category03", "32|旅游车");
-			jedis.rpush("category03", "33|班车");
-			jedis.rpush("category03", "34|租车");
-			jedis.rpush("category03", "35|房车");
-			jedis.rpush("category03", "36|出租车");
-			jedis.rpush("category03", "37|火车");
-			jedis.rpush("category03", "38|高铁");
-			jedis.rpush("category03", "39|动车");
-			jedis.rpush("category03", "40|东方航空公司");
-			jedis.rpush("category03", "41|昆明航空公司");
-			jedis.rpush("category03", "42|南方航空公司");
-			
+			List<String> valueLst = jedis.lrange("industy", 0, -1);
+			for(String value : valueLst) {
+				if(value.indexOf("|") > 0) {
+					String[] industryLst = value.split("\\|");
+					Map<String, String> industry = new HashMap<String, String>();
+					industry.put("code", industryLst[0]);
+					industry.put("name", industryLst[1]);
+					
+					IndustryCode industryCode = new IndustryCode();
+					industryCode.setRecId(StringUtil.getUUID());
+					industryCode.setCreateDate(new Date());
+					industryCode.setIndustry(industryLst[1]);
+					industryCode.setIndustryCode(industryLst[0]);
+					
+					industryCodeMapper.insert(industryCode);
+				}
+			}
 		} catch(Exception e) {
 			logger.error("获取区域错误" + e);
 		} finally {
@@ -160,9 +157,6 @@ public class CommonController {
 				jedis.close();
 			}
 		}
-		
-		
-		
 	}
 	
 }
