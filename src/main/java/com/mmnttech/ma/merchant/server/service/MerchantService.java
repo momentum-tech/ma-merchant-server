@@ -2,12 +2,16 @@ package com.mmnttech.ma.merchant.server.service;
 
 import com.mmnttech.ma.merchant.server.common.dto.MerchantDto;
 import com.mmnttech.ma.merchant.server.common.exception.DatabaseException;
+import com.mmnttech.ma.merchant.server.entity.MerchantAuth;
 import com.mmnttech.ma.merchant.server.mapper.MerchantMapper;
+import com.mmnttech.ma.merchant.server.model.Attach;
 import com.mmnttech.ma.merchant.server.model.Merchant;
 import com.mmnttech.ma.merchant.server.model.MerchantCert;
 import com.mmnttech.ma.merchant.server.model.Task;
 import com.mmnttech.ma.merchant.server.util.StringUtil;
+
 import net.sf.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -97,5 +101,9 @@ public class MerchantService {
         }
         return false;
     }
+
+	public void txMerchantAuth(MerchantAuth merchantAuth, List<Attach> attachLst) {
+		
+	}
 
 }
