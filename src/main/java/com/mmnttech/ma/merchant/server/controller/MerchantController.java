@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 
 @RestController
-@RequestMapping(value = "/v1/merchant")
+@RequestMapping(value = "/v1/merchants")
 public class MerchantController {
 
 	@Autowired
@@ -33,9 +33,63 @@ public class MerchantController {
 	
 	private Logger logger = LoggerFactory.getLogger(MerchantController.class);
 	
+<<<<<<< HEAD
+=======
+	//商户登录
+    @RequestMapping(value = "/login")
+    public RtnMessage login(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute("svcUser") SvcUser svcUser) {
+		RtnMessage rtnMsg = new RtnMessage();
+		try {
+			//TODO
+			
+		} catch (Exception e) {
+			logger.error("login 出现异常：", e);
+			rtnMsg.setIsSuccess(false);
+			rtnMsg.setMessage(RtnMessage.ERROR_LOGIN_1);
+		}
+		
+		return rtnMsg;
+	}
+	
+
+	//商户注册
+    @RequestMapping(value = "/register")
+    public RtnMessage register(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute("svcUser") SvcUser svcUser) {
+		RtnMessage rtnMsg = new RtnMessage();
+		try {
+			//TODO
+			
+		} catch (Exception e) {
+			logger.error("register 出现异常：", e);
+			rtnMsg.setIsSuccess(false);
+			rtnMsg.setMessage("注册异常：请稍后再试");
+		}
+		
+		return rtnMsg;
+	}
+	
+	//商户密码修改
+    @RequestMapping(value = "/passwd")
+    public RtnMessage passwd(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute("merchant") Merchant merchant) {
+		RtnMessage rtnMsg = new RtnMessage();
+		
+		try {
+			//TODO
+			
+		} catch (Exception e) {
+			logger.error("passwd 出现异常：", e);
+			rtnMsg.setIsSuccess(false);
+			rtnMsg.setMessage("修改密码异常：请稍后再试");
+		}
+		
+		return rtnMsg;
+	}
+>>>>>>> 0f95eab476925c756b10e59ce3f5a55d85c50b94
 	
 	//商户详细信息填写
-	@ResponseBody
     @RequestMapping(value = "/createDetailInfo")
     public RtnMessage createDetailInfo(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("merchant") Merchant merchant) {
@@ -55,7 +109,6 @@ public class MerchantController {
 	
 
 	//商户审核过程查询
-	@ResponseBody
     @RequestMapping(value = "/queryProgressInfo")
     public RtnMessage queryProgressInfo(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("merchant") Merchant merchant) {
@@ -74,7 +127,6 @@ public class MerchantController {
 	}
 	
 	//获取商户诚信二维码信息
-	@ResponseBody
     @RequestMapping(value = "/queryMerchantQRImage")
     public RtnMessage queryMerchantQRImage(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("merchant") Merchant merchant) {

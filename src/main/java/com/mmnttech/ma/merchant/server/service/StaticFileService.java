@@ -152,20 +152,11 @@ public class StaticFileService {
 		return uploadFileEntity;
 	}
 	
-	public RtnMessage changeFile2Normal(String fileFullPath) {
-		RtnMessage rtnMsg = new RtnMessage();
-		
-		try {
-			if(fileFullPath.endsWith(".STB")) {
-				File file = new File(fileFullPath);
-				file.renameTo(new File(fileFullPath.substring(0, fileFullPath.length() - 4)));
-			}
-		} catch (Exception e) {
-			logger.error("关闭IO异常", e);
-			rtnMsg.setIsSuccess(false);
-			rtnMsg.setMessage("修改临时文件失败：请稍后再试");
+	public void changeFile2Normal(String fileFullPath) throws Exception {
+		if(fileFullPath.endsWith(".STB")) {
+			File file = new File(fileFullPath);
+			file.renameTo(new File(fileFullPath.substring(0, fileFullPath.length() - 4)));
 		}
-		return rtnMsg;
 	}
 	
 	

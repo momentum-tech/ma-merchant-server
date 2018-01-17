@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mmnttech.ma.merchant.server.mapper.VoteMapper">
+    <resultMap id="BaseResultMap" type="com.mmnttech.ma.merchant.server.model.Vote">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="rec_id" jdbcType="VARCHAR" property="recId"/>
+        <result column="project_id" jdbcType="VARCHAR" property="projectId"/>
+        <result column="user_id" jdbcType="VARCHAR" property="userId"/>
+        <result column="terminal_id" jdbcType="VARCHAR" property="terminalId"/>
+        <result column="vote_type" jdbcType="CHAR" property="voteType"/>
+        <result column="vote_time" jdbcType="TIMESTAMP" property="voteTime"/>
+        <result column="comment" jdbcType="VARCHAR" property="comment"/>
+        <result column="remark" jdbcType="VARCHAR" property="remark"/>
+    </resultMap>
+</mapper>

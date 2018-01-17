@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 import tk.mybatis.mapper.entity.Example;
 
-import com.mmnttech.ma.merchant.server.common.entity.CommonDictionary;
+import com.mmnttech.ma.merchant.server.common.entity.DictionaryConst;
 import com.mmnttech.ma.merchant.server.common.entity.QueryEntity;
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
 import com.mmnttech.ma.merchant.server.common.entity.TreeMenuItem;
@@ -54,7 +54,7 @@ public class SvcUserMgmtService {
 		example.createCriteria()
 				.andEqualTo("userTel",svcUser.getUserTel())
 				.andEqualTo("userPwd",StringUtil.MD5(svcUser.getUserPwd()))
-				.andEqualTo("status",CommonDictionary.TSvcUser.STATUS_NORMAL);
+				.andEqualTo("status",DictionaryConst.TSvcUser.STATUS_NORMAL);
 
 		List<SvcUser> records = svcUserMapper.selectByExample(example);
 		if(records != null && !records.isEmpty()) {
@@ -78,7 +78,7 @@ public class SvcUserMgmtService {
 		Example example = new Example(SvcUser.class);
 		example.createCriteria()
 				.andEqualTo("userId",svcUser.getUserId())
-				.andEqualTo("status",CommonDictionary.TSvcUser.STATUS_NORMAL);
+				.andEqualTo("status",DictionaryConst.TSvcUser.STATUS_NORMAL);
 		
 		List<SvcUser> svcUserLst = svcUserMapper.selectByExample(example);
 		if(svcUserLst != null && svcUserLst.size() > 0) {
@@ -101,7 +101,7 @@ public class SvcUserMgmtService {
 		} else {
 			svcUser.setUserId(StringUtil.getUUID());
 			svcUser.setUserPwd(StringUtil.MD5(svcUser.getUserPwd()));
-			svcUser.setStatus(CommonDictionary.TSvcUser.STATUS_NORMAL);
+			svcUser.setStatus(DictionaryConst.TSvcUser.STATUS_NORMAL);
 			svcUser.setCreateDate(new Date());
 			
 			svcUserMapper.insert(svcUser);

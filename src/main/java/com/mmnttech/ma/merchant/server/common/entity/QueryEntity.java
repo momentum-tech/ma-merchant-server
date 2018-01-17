@@ -17,8 +17,10 @@ public class QueryEntity {
 	private String userId;
 	
 	private String merchId;
-	
-	private String storeId;
+
+    private String merchName;
+
+    private String storeId;
 	
 	private String menuGroupId;
 	
@@ -211,5 +213,12 @@ public class QueryEntity {
 	public void setInstId(String instId) {
 		this.instId = instId;
 	}
-	
+
+    public String getMerchName() {
+        return merchName;
+    }
+
+    public void setMerchName(String merchName) {
+        this.merchName = merchName;
+    }
 }

@@ -9,8 +9,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tk.mybatis.mapper.entity.Example;
 
-import com.mmnttech.ma.merchant.server.common.entity.CommonDictionary;
+import com.mmnttech.ma.merchant.server.common.entity.DictionaryConst;
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
+import com.mmnttech.ma.merchant.server.mapper.AttachMapper;
 import com.mmnttech.ma.merchant.server.mapper.MerchantMapper;
 import com.mmnttech.ma.merchant.server.mapper.MerchantUserMapper;
 import com.mmnttech.ma.merchant.server.mapper.RoleMapper;
@@ -42,6 +43,9 @@ public class MerchantUserService {
 	@Autowired
 	private RoleMapper roleMapper;
 	
+	@Autowired
+	private AttachMapper attachMapper;
+	
 	public RtnMessage doLogin(MerchantUser merchantUser) {
 		RtnMessage rtnMsg = new RtnMessage();
 
@@ -49,7 +53,7 @@ public class MerchantUserService {
 		example.createCriteria()
 				.andEqualTo("userTel",merchantUser.getUserTel())
 				.andEqualTo("userPwd",StringUtil.MD5(merchantUser.getUserPwd()))
-				.andEqualTo("status",CommonDictionary.TSvcUser.STATUS_NORMAL);
+				.andEqualTo("status",DictionaryConst.TSvcUser.STATUS_NORMAL);
 
 		List<MerchantUser> records = merchantUserMapper.selectByExample(example);
 		if(records != null && !records.isEmpty()) {
@@ -90,15 +94,15 @@ public class MerchantUserService {
 				Merchant merchant = new Merchant();
 				merchant.setRecId(StringUtil.getUUID());
 				merchant.setCreateDate(new Date());
-				merchant.setAuthStep(CommonDictionary.TMerchant.AUTH_STEP_1);
-				merchant.setComStat(CommonDictionary.Common.COM_STAT_UNAUTHORIZED);
+				merchant.setAuthStep(DictionaryConst.TMerchant.AUTH_STEP_1);
+				merchant.setComStat(DictionaryConst.Common.COM_STAT_UNAUTHORIZED);
 				
 				merchantMapper.insert(merchant);
 				
 				merchantUser.setUserId(StringUtil.getUUID());
 				merchantUser.setCreateDate(new Date());
 				merchantUser.setUserPwd(StringUtil.MD5(merchantUser.getUserPwd()));
-				merchantUser.setStatus(CommonDictionary.Common.STAT_ENABLE);
+				merchantUser.setStatus(DictionaryConst.Common.STAT_ENABLE);
 				merchantUser.setRoleId(role.getRecId());
 				merchantUser.setMerchantId(merchant.getRecId());
 				
@@ -117,7 +121,7 @@ public class MerchantUserService {
 		Example example = new Example(SvcUser.class);
 		example.createCriteria()
 				.andEqualTo("userId",merchantUser.getUserId())
-				.andEqualTo("status",CommonDictionary.TSvcUser.STATUS_NORMAL);
+				.andEqualTo("status",DictionaryConst.TSvcUser.STATUS_NORMAL);
 		
 		List<MerchantUser> merchantUserLst = merchantUserMapper.selectByExample(example);
 		if(merchantUserLst != null && merchantUserLst.size() > 0) {
@@ -129,15 +133,5 @@ public class MerchantUserService {
 	//TODO
 	public RtnMessage createSvcUser(MerchantUser merchantUser) {
 		return null;
-	}
-
-	//TODO
-	public void doUpdateMerchantUser(MerchantUser merchantUser) {
-		
-	}
-
-	//TODO
-	public void deleteMerchantUser(String userId) {
-		
 	}
 }

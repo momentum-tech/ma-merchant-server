@@ -10,7 +10,7 @@ package com.mmnttech.ma.merchant.server.common.entity;
  * @版本 v1.0
  * 
  */
-public class CommonDictionary {
+public class DictionaryConst {
 
 	public class Common {
 		public static final String PAYNAME_WEIX = "weix";
@@ -47,6 +47,13 @@ public class CommonDictionary {
 		public static final String AUTH_STEP_1 = "1";
 		public static final String AUTH_STEP_2 = "2";
 		public static final String AUTH_STEP_3 = "3";
+	}
+	
+	public class TAttach {
+		public static final String TYPE_HEAD_IMAGE = "1";
+		public static final String TYPE_ID_FRONT_IMAGE = "2";
+		public static final String TYPE_ID_BACK_IMAGE = "3";
+		public static final String TYPE_MERCHANT_LICENSE_IMAGE = "4";
 	}
 	
 }

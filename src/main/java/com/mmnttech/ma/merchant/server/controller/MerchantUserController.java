@@ -1,5 +1,8 @@
 package com.mmnttech.ma.merchant.server.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -11,11 +14,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.mmnttech.ma.merchant.server.common.entity.DictionaryConst;
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
+import com.mmnttech.ma.merchant.server.entity.MerchantAuth;
+import com.mmnttech.ma.merchant.server.model.Attach;
 import com.mmnttech.ma.merchant.server.model.Merchant;
 import com.mmnttech.ma.merchant.server.model.MerchantUser;
+import com.mmnttech.ma.merchant.server.service.MerchantService;
 import com.mmnttech.ma.merchant.server.service.MerchantUserService;
 import com.mmnttech.ma.merchant.server.service.RoleService;
+import com.mmnttech.ma.merchant.server.service.StaticFileService;
 
 /**
  * @类名 MerchantUserController
@@ -37,7 +45,13 @@ public class MerchantUserController {
 	private MerchantUserService merchantUserService;
 	
 	@Autowired
+	private MerchantService merchantService;
+	
+	@Autowired
 	private RoleService roleService;
+	
+	@Autowired
+	private StaticFileService staticFileService;
 	
 	@ResponseBody
 	@RequestMapping(value = "doLogin")
@@ -62,7 +76,7 @@ public class MerchantUserController {
 		try {
 			rtnMsg = merchantUserService.txRegists(merchantUser);
 		} catch (Exception e) {
-			logger.error("doLogin 出现异常：", e);
+			logger.error("doRegists 出现异常：", e);
 			rtnMsg.setIsSuccess(false);
 			rtnMsg.setMessage(RtnMessage.ERROR_LOGIN_2);
 		}
@@ -77,7 +91,7 @@ public class MerchantUserController {
 		try {
 			rtnMsg = merchantUserService.createSvcUser(merchantUser);
 		} catch (Exception e) {
-			logger.error("createSvcUser 出现异常：", e);
+			logger.error("createMerchantUser 出现异常：", e);
 			rtnMsg.setIsSuccess(false);
 			rtnMsg.setMessage(RtnMessage.ERROR_REGISTER_2);
 		}
@@ -106,12 +120,46 @@ public class MerchantUserController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "doUpdateMerchantUser")
-	public RtnMessage doUpdateSvcUser(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("merchantUser") MerchantUser merchantUser) {
+	@RequestMapping(value = "merchantAuth")
+	public RtnMessage merchantAuth(HttpServletRequest request, HttpServletResponse response,
+			@ModelAttribute("merchantAuth") MerchantAuth merchantAuth) {
 		RtnMessage rtnMsg = new RtnMessage();
 		try {
-			merchantUserService.doUpdateMerchantUser(merchantUser);
+			List<Attach> attachLst = new ArrayList<Attach>();
+			if(merchantAuth.getIdCardFrontFullPath() != null && merchantAuth.getIdCardFrontUrl() != null) {
+				staticFileService.changeFile2Normal(merchantAuth.getIdCardFrontFullPath());
+				
+				Attach idCardFront = new Attach();
+				idCardFront.setType(DictionaryConst.TAttach.TYPE_ID_FRONT_IMAGE);
+				idCardFront.setName("商户法人身份证(正面)");
+				idCardFront.setSeriNo(1);
+				
+				attachLst.add(idCardFront);
+			}
+			
+			if(merchantAuth.getIdCardBackFullPath() != null && merchantAuth.getIdCardBackUrl() != null) {
+				staticFileService.changeFile2Normal(merchantAuth.getIdCardBackFullPath());
+				
+				Attach idCardBack = new Attach();
+				idCardBack.setType(DictionaryConst.TAttach.TYPE_ID_BACK_IMAGE);
+				idCardBack.setName("商户法人身份证(反面)");
+				idCardBack.setSeriNo(2);
+				
+				attachLst.add(idCardBack);
+			}
+
+			if(merchantAuth.getLicenseNoFullPath() != null && merchantAuth.getLicenseNoUrl() != null) {
+				staticFileService.changeFile2Normal(merchantAuth.getLicenseNoFullPath());
+				
+				Attach license = new Attach();
+				license.setType(DictionaryConst.TAttach.TYPE_MERCHANT_LICENSE_IMAGE);
+				license.setName("商户营业执照");
+				license.setSeriNo(3);
+				
+				attachLst.add(license);
+			}
+			
+			merchantService.txMerchantAuth(merchantAuth, attachLst);
 		} catch (Exception e) {
 			logger.error("doUpdateMerchantUser 出现异常：", e);
 			rtnMsg.setIsSuccess(false);
@@ -120,21 +168,5 @@ public class MerchantUserController {
 		return rtnMsg;
 	}
 
-	@ResponseBody
-	@RequestMapping(value = "deleteMerchantUser")
-	public RtnMessage deleteMerchantUser(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("merchantUser") MerchantUser merchantUser) {
-		RtnMessage rtnMsg = new RtnMessage();
-		try {
-			merchantUserService.deleteMerchantUser(merchantUser.getUserId());
-		} catch (Exception e) {
-			logger.error("deleteMerchantUser 出现异常：", e);
-			rtnMsg.setIsSuccess(false);
-			rtnMsg.setMessage(RtnMessage.ERROR_DELETE_2);
-		}
-		return rtnMsg;
-	}
-	
-	
 
 }
