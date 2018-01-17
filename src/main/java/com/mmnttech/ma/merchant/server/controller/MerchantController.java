@@ -33,8 +33,6 @@ public class MerchantController {
 	
 	private Logger logger = LoggerFactory.getLogger(MerchantController.class);
 	
-<<<<<<< HEAD
-=======
 	//商户登录
     @RequestMapping(value = "/login")
     public RtnMessage login(HttpServletRequest request, HttpServletResponse response,
@@ -87,8 +85,7 @@ public class MerchantController {
 		
 		return rtnMsg;
 	}
->>>>>>> 0f95eab476925c756b10e59ce3f5a55d85c50b94
-	
+    
 	//商户详细信息填写
     @RequestMapping(value = "/createDetailInfo")
     public RtnMessage createDetailInfo(HttpServletRequest request, HttpServletResponse response,
