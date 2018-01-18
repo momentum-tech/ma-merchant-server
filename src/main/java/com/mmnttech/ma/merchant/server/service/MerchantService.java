@@ -111,11 +111,9 @@ public class MerchantService {
 
     @Transactional
 	public void txMerchantAuth(MerchantAuth merchantAuth, List<Attach> attachLst) {
-		merchantAuth.setRecId(StringUtil.getUUID());
-		merchantAuth.setCreateDate(new Date());
+		merchantAuth.setAuthStep(DictionaryConst.TMerchant.AUTH_STEP_1);
 		merchantAuth.setComStat(DictionaryConst.Common.COM_STAT_WAITING_4_AUTHORIZETION);
-		
-		merchantMapper.insert(merchantAuth);
+		merchantMapper.updateByPrimaryKeySelective(merchantAuth);
 		
 		for(Attach record : attachLst) {
 			record.setRecId(StringUtil.getUUID());

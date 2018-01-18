@@ -159,6 +159,9 @@ public class StaticFileService {
 		}
 	}
 	
+	public String getNormalRelativePathName(String fileRelativePath) {
+		return fileRelativePath.substring(0, fileRelativePath.length() - 4);
+	}
 	
 	public String storeImageFile(byte[] fileInfos, String fileFormat) {
 		try {
