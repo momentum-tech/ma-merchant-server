@@ -30,6 +30,10 @@ public class QueryEntity {
 	
 	private String roleId;
 	
+	private String parentId;
+	
+	private String industryCode;
+	
 	private String payName;
 	
 	private String queryName;
@@ -53,6 +57,22 @@ public class QueryEntity {
 	private int rows = 20;
 	
 	private int page = 1;
+
+	public String getIndustryCode() {
+		return industryCode;
+	}
+
+	public void setIndustryCode(String industryCode) {
+		this.industryCode = industryCode;
+	}
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
 
 	public String getStoreId() {
 		return storeId;

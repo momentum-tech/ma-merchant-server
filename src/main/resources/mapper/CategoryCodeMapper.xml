@@ -10,5 +10,6 @@
     <result column="category" jdbcType="VARCHAR" property="category" />
     <result column="com_memo" jdbcType="VARCHAR" property="comMemo" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="industry_id" jdbcType="VARCHAR" property="industryId" />
   </resultMap>
 </mapper>

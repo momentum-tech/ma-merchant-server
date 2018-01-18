@@ -88,7 +88,8 @@ public class MerchantService {
     }
 
     public List<String> queryRecIdByCpyName(String cpyName) {
-        return merchantMapper.queryRecIdByCpyName(cpyName);
+//        return merchantMapper.queryRecIdByCpyName(cpyName);
+    	return null;
     }
 
     private Boolean createMerchantCertTask(Merchant merchant) {

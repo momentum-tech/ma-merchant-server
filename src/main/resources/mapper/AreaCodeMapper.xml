@@ -7,9 +7,10 @@
     -->
     <id column="rec_id" jdbcType="VARCHAR" property="recId" />
     <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
-    <result column="industry" jdbcType="VARCHAR" property="industry" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
     <result column="level" jdbcType="VARCHAR" property="level" />
     <result column="com_memo" jdbcType="VARCHAR" property="comMemo" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="parent_area_id" jdbcType="VARCHAR" property="parentAreaId" />
   </resultMap>
 </mapper>

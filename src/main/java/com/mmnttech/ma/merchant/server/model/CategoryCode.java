@@ -20,6 +20,9 @@ public class CategoryCode {
     @Column(name = "create_date")
     private Date createDate;
 
+    @Column(name = "industry_id")
+    private String industryId;
+
     /**
      * @return rec_id
      */
@@ -88,5 +91,19 @@ public class CategoryCode {
      */
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    /**
+     * @return industry_id
+     */
+    public String getIndustryId() {
+        return industryId;
+    }
+
+    /**
+     * @param industryId
+     */
+    public void setIndustryId(String industryId) {
+        this.industryId = industryId;
     }
 }

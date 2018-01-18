@@ -12,7 +12,7 @@ public class AreaCode {
     @Column(name = "area_code")
     private String areaCode;
 
-    private String industry;
+    private String area;
 
     private String level;
 
@@ -21,6 +21,9 @@ public class AreaCode {
 
     @Column(name = "create_date")
     private Date createDate;
+
+    @Column(name = "parent_area_id")
+    private String parentAreaId;
 
     /**
      * @return rec_id
@@ -51,17 +54,17 @@ public class AreaCode {
     }
 
     /**
-     * @return industry
+     * @return area
      */
-    public String getIndustry() {
-        return industry;
+    public String getArea() {
+        return area;
     }
 
     /**
-     * @param industry
+     * @param area
      */
-    public void setIndustry(String industry) {
-        this.industry = industry;
+    public void setArea(String area) {
+        this.area = area;
     }
 
     /**
@@ -104,5 +107,19 @@ public class AreaCode {
      */
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    /**
+     * @return parent_area_id
+     */
+    public String getParentAreaId() {
+        return parentAreaId;
+    }
+
+    /**
+     * @param parentAreaId
+     */
+    public void setParentAreaId(String parentAreaId) {
+        this.parentAreaId = parentAreaId;
     }
 }
