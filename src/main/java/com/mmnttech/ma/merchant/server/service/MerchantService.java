@@ -6,8 +6,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -25,7 +23,6 @@ import com.mmnttech.ma.merchant.server.model.MerchantCert;
 import com.mmnttech.ma.merchant.server.model.Task;
 import com.mmnttech.ma.merchant.server.util.StringUtil;
 
-import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -116,7 +113,7 @@ public class MerchantService {
             task.setType(MerchantCertTaskType);
             task.setTaskDesc("诚信商户认证");
             task.setRole(roleService.queryRoleById(curMerchant.getRoleId()).getRecId());
-            task.setData(JSONObject.fromObject(merchant.getRecId()).toString());
+            task.setData(merchant.getRecId());
             taskList.add(task);
         }
         if (!taskService.createTaskList(taskList).isEmpty()) {
@@ -124,7 +121,7 @@ public class MerchantService {
         }
         return false;
     }
-
+    
     @Transactional
 	public void txMerchantAuth(MerchantAuth merchantAuth, List<Attach> attachLst) {
 		merchantAuth.setAuthStep(DictionaryConst.TMerchant.AUTH_STEP_1);
