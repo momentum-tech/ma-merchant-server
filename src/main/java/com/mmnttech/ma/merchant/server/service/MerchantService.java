@@ -1,12 +1,15 @@
 package com.mmnttech.ma.merchant.server.service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,6 +24,16 @@ import com.mmnttech.ma.merchant.server.model.Merchant;
 import com.mmnttech.ma.merchant.server.model.MerchantCert;
 import com.mmnttech.ma.merchant.server.model.Task;
 import com.mmnttech.ma.merchant.server.util.StringUtil;
+
+import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
+
 
 /**
  * @类名 MerchantService
@@ -56,9 +69,12 @@ public class MerchantService {
 
     @Autowired
     private TaskService taskService;
+    
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
 
     public MerchantDto createMerchant(MerchantDto merchantDto) {
-        Merchant merchant = merchantDto.getMerchant();
+    	Merchant merchant = merchantDto.getMerchant();
         merchant.setRecId(StringUtil.getUUID());
         if (merchantMapper.insert(merchant) == 1) {
             if (!attachService.createAll(merchantDto.getAttachList(), merchant.getRecId())) {
@@ -100,7 +116,7 @@ public class MerchantService {
             task.setType(MerchantCertTaskType);
             task.setTaskDesc("诚信商户认证");
             task.setRole(roleService.queryRoleById(curMerchant.getRoleId()).getRecId());
-            task.setData(JSONObject.fromObject(merchant).toString());
+            task.setData(JSONObject.fromObject(merchant.getRecId()).toString());
             taskList.add(task);
         }
         if (!taskService.createTaskList(taskList).isEmpty()) {
@@ -123,6 +139,21 @@ public class MerchantService {
 			attachMapper.insert(record);
 		}
 		
+	}
+
+	public Map<String, Object> queryMerchantInfo(String recId) {
+		List<Object> paramLst = new ArrayList<Object>();
+		
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT t2.*, CC.category FROM (");
+		sql.append("SELECT t1.*, AC.area FROM (");
+		sql.append("SELECT MCT.*, IDC.industry FROM (SELECT * FROM t_merchant WHERE rec_id = ?) MCT LEFT JOIN (SELECT * FROM t_industry_code)IDC ON MCT.industry_code = IDC.industry_code");
+		sql.append(")t1 LEFT JOIN (SELECT * FROM t_area_code) AC ON t1.area_code = AC.area_code");
+		sql.append(")t2 LEFT JOIN (SELECT * FROM t_category_code) CC ON t2.category_code = CC.category_code");
+		
+		paramLst.add(recId);
+		
+		return jdbcTemplate.queryForMap(sql.toString(), paramLst.toArray());
 	}
 
 }

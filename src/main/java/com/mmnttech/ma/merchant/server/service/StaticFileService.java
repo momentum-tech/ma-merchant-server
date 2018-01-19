@@ -39,7 +39,7 @@ public class StaticFileService {
 	
 	private String rootPath = "/home/ubuntu/staticres/images";
 	
-	public static final String STATIC_IMAGE_PATH = "http://121.40.171.182/images/";
+	public static final String STATIC_IMAGE_PATH = "http://111.231.201.90/images/";
 	
 	private static final int miniWidth = 600;
 	private static final int miniHeight = 600;

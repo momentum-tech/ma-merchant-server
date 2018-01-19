@@ -17,19 +17,17 @@ import com.mmnttech.ma.merchant.server.util.StringUtil;
  * @createAt 2018/1/12
  **/
 
-@Transactional(rollbackFor = DatabaseException.class)
 @Service("attachService")
 public class AttachService {
     @Autowired
     private AttachMapper attachMapper;
 
     public Attach create(Attach attach) {
-        if (attachMapper.insert(attach) != 1) {
-            throw new DatabaseException("error.attach.insert");
-        }
+        attachMapper.insert(attach);
         return attach;
     }
-
+    
+    @Transactional(rollbackFor = DatabaseException.class)
     public boolean createAll(List<Attach> attachListElements, String masterId) {
         for (Attach element : attachListElements) {
             element.setMasterId(masterId);

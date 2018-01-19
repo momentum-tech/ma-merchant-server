@@ -1,17 +1,29 @@
 package com.mmnttech.ma.merchant.server.controller;
 
-import com.mmnttech.ma.merchant.server.common.dto.MerchantDto;
-import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
-import com.mmnttech.ma.merchant.server.model.Merchant;
-import com.mmnttech.ma.merchant.server.model.SvcUser;
-import com.mmnttech.ma.merchant.server.service.MerchantService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.mmnttech.ma.merchant.server.common.dto.MerchantDto;
+import com.mmnttech.ma.merchant.server.common.entity.DictionaryConst;
+import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
+import com.mmnttech.ma.merchant.server.model.Attach;
+import com.mmnttech.ma.merchant.server.model.Merchant;
+import com.mmnttech.ma.merchant.server.service.AttachService;
+import com.mmnttech.ma.merchant.server.service.MerchantService;
+import com.mmnttech.ma.merchant.server.service.StaticFileService;
 
 /**
  * @类名 MerchantController
@@ -31,79 +43,39 @@ public class MerchantController {
 	@Autowired
 	private MerchantService merchantService;
 	
+	@Autowired
+	private AttachService attachService;
+	
 	private Logger logger = LoggerFactory.getLogger(MerchantController.class);
 	
-	//商户登录
-    @RequestMapping(value = "/login")
-    public RtnMessage login(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("svcUser") SvcUser svcUser) {
-		RtnMessage rtnMsg = new RtnMessage();
-		try {
-			//TODO
-			
-		} catch (Exception e) {
-			logger.error("login 出现异常：", e);
-			rtnMsg.setIsSuccess(false);
-			rtnMsg.setMessage(RtnMessage.ERROR_LOGIN_1);
-		}
-		
-		return rtnMsg;
-	}
-	
 
-	//商户注册
-    @RequestMapping(value = "/register")
-    public RtnMessage register(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("svcUser") SvcUser svcUser) {
-		RtnMessage rtnMsg = new RtnMessage();
-		try {
-			//TODO
-			
-		} catch (Exception e) {
-			logger.error("register 出现异常：", e);
-			rtnMsg.setIsSuccess(false);
-			rtnMsg.setMessage("注册异常：请稍后再试");
-		}
-		
-		return rtnMsg;
-	}
-	
-	//商户密码修改
-    @RequestMapping(value = "/passwd")
-    public RtnMessage passwd(HttpServletRequest request, HttpServletResponse response,
+	//获取商户详细信息
+    @RequestMapping(value = "/queryMerchantInfo")
+    public RtnMessage queryMerchantInfo(HttpServletRequest request, HttpServletResponse response,
 			@ModelAttribute("merchant") Merchant merchant) {
 		RtnMessage rtnMsg = new RtnMessage();
-		
 		try {
-			//TODO
-			
+			Map<String, Object> merchantInfo = merchantService.queryMerchantInfo(merchant.getRecId());
+			List<Attach> attachLst = attachService.findByMasterId(merchant.getRecId());
+			for(Attach attach : attachLst) {
+				if(attach.getType().equals(DictionaryConst.TAttach.TYPE_ID_FRONT_IMAGE)) {
+					merchantInfo.put("idCardFrontUrl", StaticFileService.STATIC_IMAGE_PATH + attach.getAttachUrl());
+				} else if(attach.getType().equals(DictionaryConst.TAttach.TYPE_ID_BACK_IMAGE)) {
+					merchantInfo.put("idCardBackUrl", StaticFileService.STATIC_IMAGE_PATH + attach.getAttachUrl());
+				} else if(attach.getType().equals(DictionaryConst.TAttach.TYPE_MERCHANT_LICENSE_IMAGE)) {
+					merchantInfo.put("licenseNoUrl", StaticFileService.STATIC_IMAGE_PATH + attach.getAttachUrl());
+				}
+			}
+			rtnMsg.setRtnObj(merchantInfo);
 		} catch (Exception e) {
-			logger.error("passwd 出现异常：", e);
+			logger.error("queryMerchantInfo 出现异常：", e);
 			rtnMsg.setIsSuccess(false);
-			rtnMsg.setMessage("修改密码异常：请稍后再试");
+			rtnMsg.setMessage(RtnMessage.ERROR_QUERY_1);
 		}
 		
 		return rtnMsg;
 	}
-    
-	//商户详细信息填写
-    @RequestMapping(value = "/createDetailInfo")
-    public RtnMessage createDetailInfo(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("merchant") Merchant merchant) {
-		RtnMessage rtnMsg = new RtnMessage();
 
-		try {
-			//TODO
-			
-		} catch (Exception e) {
-			logger.error("detailInfo 出现异常：", e);
-			rtnMsg.setIsSuccess(false);
-			rtnMsg.setMessage("商户详细信息填写异常：请稍后再试");
-		}
-		
-		return rtnMsg;
-	}
-	
 
 	//商户审核过程查询
     @RequestMapping(value = "/queryProgressInfo")
