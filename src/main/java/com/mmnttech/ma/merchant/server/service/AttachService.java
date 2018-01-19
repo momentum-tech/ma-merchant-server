@@ -1,16 +1,15 @@
 package com.mmnttech.ma.merchant.server.service;
 
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.mmnttech.ma.merchant.server.common.exception.DatabaseException;
 import com.mmnttech.ma.merchant.server.mapper.AttachMapper;
 import com.mmnttech.ma.merchant.server.model.Attach;
 import com.mmnttech.ma.merchant.server.util.StringUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author Stelo

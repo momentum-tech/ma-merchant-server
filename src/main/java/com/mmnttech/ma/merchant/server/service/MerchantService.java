@@ -22,16 +22,6 @@ import com.mmnttech.ma.merchant.server.model.Merchant;
 import com.mmnttech.ma.merchant.server.model.MerchantCert;
 import com.mmnttech.ma.merchant.server.model.Task;
 import com.mmnttech.ma.merchant.server.util.StringUtil;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
-
 /**
  * @类名 MerchantService
  * @描述:
@@ -71,7 +61,7 @@ public class MerchantService {
     private JdbcTemplate jdbcTemplate;
 
     public MerchantDto createMerchant(MerchantDto merchantDto) {
-    	Merchant merchant = merchantDto.getMerchant();
+        Merchant merchant = merchantDto.getMerchant();
         merchant.setRecId(StringUtil.getUUID());
         if (merchantMapper.insert(merchant) == 1) {
             if (!attachService.createAll(merchantDto.getAttachList(), merchant.getRecId())) {
