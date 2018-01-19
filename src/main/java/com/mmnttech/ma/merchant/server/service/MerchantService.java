@@ -1,15 +1,5 @@
 package com.mmnttech.ma.merchant.server.service;
 
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
-
-import net.sf.json.JSONObject;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.mmnttech.ma.merchant.server.common.dto.MerchantDto;
 import com.mmnttech.ma.merchant.server.common.entity.DictionaryConst;
 import com.mmnttech.ma.merchant.server.common.exception.DatabaseException;
@@ -21,6 +11,14 @@ import com.mmnttech.ma.merchant.server.model.Merchant;
 import com.mmnttech.ma.merchant.server.model.MerchantCert;
 import com.mmnttech.ma.merchant.server.model.Task;
 import com.mmnttech.ma.merchant.server.util.StringUtil;
+import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @类名 MerchantService
@@ -100,7 +98,7 @@ public class MerchantService {
             task.setType(MerchantCertTaskType);
             task.setTaskDesc("诚信商户认证");
             task.setRole(roleService.queryRoleById(curMerchant.getRoleId()).getRecId());
-            task.setData(JSONObject.fromObject(merchant).toString());
+            task.setData(JSONObject.fromObject(merchant.getRecId()).toString());
             taskList.add(task);
         }
         if (!taskService.createTaskList(taskList).isEmpty()) {
