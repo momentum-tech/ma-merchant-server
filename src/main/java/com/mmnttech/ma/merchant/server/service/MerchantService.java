@@ -30,7 +30,6 @@ import java.util.List;
  * 
  */
 
-@Transactional(rollbackFor = DatabaseException.class)
 @Service("merchantService")
 public class MerchantService {
 
@@ -54,23 +53,20 @@ public class MerchantService {
     @Autowired
     private TaskService taskService;
 
+    @Transactional(rollbackFor = DatabaseException.class)
     public MerchantDto createMerchant(MerchantDto merchantDto) {
         Merchant merchant = merchantDto.getMerchant();
-        merchant.setRecId(StringUtil.getUUID());
-        if (merchantMapper.insert(merchant) == 1) {
-            if (!attachService.createAll(merchantDto.getAttachList(), merchant.getRecId())) {
-                throw new DatabaseException("error.merchant.insert");
-            }
-        } else {
+        merchant.setAuthStep(DictionaryConst.TMerchant.AUTH_STEP_1);
+        merchant.setComStat(DictionaryConst.Common.COM_STAT_WAITING_4_AUTHORIZETION);
+        merchantMapper.updateByPrimaryKeySelective(merchant);
+        if (!attachService.createAll(merchantDto.getAttachList(), merchantDto.getMerchant().getRecId())) {
             throw new DatabaseException("error.merchant.insert");
         }
-        if (!createMerchantCertTask(merchant)) {
+        if (!createMerchantCertTask(merchantDto.getMerchant())) {
             throw new DatabaseException("error.task.insert");
         }
-        MerchantDto curMerchant = new MerchantDto();
-        curMerchant.setMerchant(merchant);
-        curMerchant.setAttachList(attachService.findByMasterId(merchant.getRecId()));
-        return curMerchant;
+        merchantDto.setAttachList(attachService.findByMasterId(merchantDto.getMerchant().getRecId()));
+        return merchantDto;
     }
     
     public Merchant queryMerchantById(String recId) {
@@ -85,8 +81,7 @@ public class MerchantService {
     }
 
     public List<String> queryRecIdByCpyName(String cpyName) {
-//        return merchantMapper.queryRecIdByCpyName(cpyName);
-    	return null;
+        return merchantMapper.queryRecIdByCpyName(cpyName);
     }
 
     private Boolean createMerchantCertTask(Merchant merchant) {
@@ -111,7 +106,6 @@ public class MerchantService {
 		merchantAuth.setAuthStep(DictionaryConst.TMerchant.AUTH_STEP_1);
 		merchantAuth.setComStat(DictionaryConst.Common.COM_STAT_WAITING_4_AUTHORIZETION);
 		merchantMapper.updateByPrimaryKeySelective(merchantAuth);
-		
 		for(Attach record : attachLst) {
 			record.setRecId(StringUtil.getUUID());
 			record.setCreateDate(new Date());

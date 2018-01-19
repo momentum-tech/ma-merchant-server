@@ -28,32 +28,86 @@ public class DictionaryConst {
 		
 		public static final String STAT_DISABLE = "0";
 		public static final String STAT_ENABLE = "1";
-		
-		public static final String COM_STAT_UNAUTHORIZED = "0";
-		public static final String COM_STAT_WAITING_4_AUTHORIZETION = "1";
-		public static final String COM_STAT_AUTHORIZETION_PASS = "2";
-		public static final String COM_STAT_AUTHORIZETION_DENY = "3";
-	}
-	
-	public class TSvcUser {
-		public static final String STATUS_NORMAL = "1";
-		public static final String STATUS_DISABLE = "2";
-		
-		public static final String ROLE_INFO_ADMINISTRATOR = "1";
-		public static final String ROLE_INFO_OPERATRO = "2";
-	}
-	
-	public class TMerchant {
-		public static final String AUTH_STEP_1 = "1";
-		public static final String AUTH_STEP_2 = "2";
-		public static final String AUTH_STEP_3 = "3";
-	}
-	
-	public class TAttach {
-		public static final String TYPE_HEAD_IMAGE = "1";
-		public static final String TYPE_ID_FRONT_IMAGE = "2";
-		public static final String TYPE_ID_BACK_IMAGE = "3";
-		public static final String TYPE_MERCHANT_LICENSE_IMAGE = "4";
-	}
+
+    }
+
+    enum MerchantStat {
+        //TODO
+    }
+
+    enum MerchantComStat {
+        COM_STAT_UNAUTHORIZED("0"), COM_STAT_WAITING_4_AUTHORIZETION("1"), COM_STAT_AUTHORIZETION_PASS("2"), COM_STAT_AUTHORIZETION_DENY("3");
+
+        private String value;
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        MerchantComStat(String value) {
+
+            this.value = value;
+        }
+    }
+
+    enum SvcUserStatus {
+        STATUS_NORMAL("1"), STATUS_DISABLE("2");
+
+        private String value;
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        SvcUserStatus(String value) {
+
+            this.value = value;
+        }
+    }
+
+    enum MerchantAuthType {
+        BASIC_INFO("1"), LICENSE_AUTH("2"), HONEST_MERCHANT("3");
+
+        private String value;
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        MerchantAuthType(String value) {
+
+            this.value = value;
+        }
+    }
+
+    enum AttachType {
+        HEAD_IMAGE("1"), ID_FRONT_IMAGE("2"), ID_BACK_IMAGE("3"), MERCHANT_LICENSE_IMAGE("4");
+
+        private String value;
+
+        AttachType(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+    }
 	
 }
