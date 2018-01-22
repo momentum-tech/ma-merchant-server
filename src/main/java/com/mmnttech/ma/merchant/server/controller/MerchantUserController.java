@@ -133,7 +133,7 @@ public class MerchantUserController {
 				idCardFront.setType(DictionaryConst.TAttach.TYPE_ID_FRONT_IMAGE);
 				idCardFront.setName("商户法人身份证(正面)");
 				idCardFront.setSeriNo(1);
-				idCardFront.setAttachUrl(staticFileService.getNormalRelativePathName(merchantAuth.getIdCardFrontUrl()));
+				idCardFront.setAttachUrl(merchantAuth.getIdCardBackUrl());
 				
 				attachLst.add(idCardFront);
 			}
@@ -145,7 +145,7 @@ public class MerchantUserController {
 				idCardBack.setType(DictionaryConst.TAttach.TYPE_ID_BACK_IMAGE);
 				idCardBack.setName("商户法人身份证(反面)");
 				idCardBack.setSeriNo(2);
-				idCardBack.setAttachUrl(staticFileService.getNormalRelativePathName(merchantAuth.getIdCardBackUrl()));
+				idCardBack.setAttachUrl(merchantAuth.getIdCardBackUrl());
 				
 				attachLst.add(idCardBack);
 			}
@@ -157,7 +157,7 @@ public class MerchantUserController {
 				license.setType(DictionaryConst.TAttach.TYPE_MERCHANT_LICENSE_IMAGE);
 				license.setName("商户营业执照");
 				license.setSeriNo(3);
-				license.setAttachUrl(staticFileService.getNormalRelativePathName(merchantAuth.getLicenseNoUrl()));
+				license.setAttachUrl(merchantAuth.getIdCardBackUrl());
 				
 				attachLst.add(license);
 			}
