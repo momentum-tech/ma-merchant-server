@@ -56,4 +56,10 @@ public class DictionaryConst {
 		public static final String TYPE_MERCHANT_LICENSE_IMAGE = "4";
 	}
 	
+	public class TTask {
+		public static final String STATUS_STANDBY = "1";
+		public static final String STATUS_FINISH = "2";
+		public static final String STATUS_PROCESSING = "P";
+	}
+	
 }
