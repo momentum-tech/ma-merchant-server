@@ -20,10 +20,12 @@ import com.mmnttech.ma.merchant.server.entity.MerchantAuth;
 import com.mmnttech.ma.merchant.server.model.Attach;
 import com.mmnttech.ma.merchant.server.model.Merchant;
 import com.mmnttech.ma.merchant.server.model.MerchantUser;
+import com.mmnttech.ma.merchant.server.model.Role;
 import com.mmnttech.ma.merchant.server.service.MerchantService;
 import com.mmnttech.ma.merchant.server.service.MerchantUserService;
 import com.mmnttech.ma.merchant.server.service.RoleService;
 import com.mmnttech.ma.merchant.server.service.StaticFileService;
+import com.mmnttech.ma.merchant.server.util.ImageHelper;
 
 /**
  * @类名 MerchantUserController
@@ -162,7 +164,29 @@ public class MerchantUserController {
 				attachLst.add(license);
 			}
 			
-			merchantService.txMerchantAuth(merchantAuth, attachLst);
+			StringBuffer integrityCode = new StringBuffer();
+			integrityCode.append(merchantAuth.getAreaCode())
+				.append(merchantAuth.getIndustryCode()).append(merchantAuth.getCategoryCode())
+				.append(merchantAuth.getClrAct());
+			
+			byte[] imageData = ImageHelper.createQRImage(integrityCode.toString());
+			String imageRelativePath = staticFileService.storeImageFileDirect(imageData, "png");
+			
+			Attach merchantQR = new Attach();
+			merchantQR.setType(DictionaryConst.TAttach.TYPE_MERCHANT_QR);
+			merchantQR.setName("商户诚信二维码");
+			merchantQR.setSeriNo(5);
+			merchantQR.setAttachUrl(imageRelativePath);
+			
+			attachLst.add(merchantQR);
+			
+			Role role = roleService.queryAuthRole(merchantAuth.getAreaCode(), merchantAuth.getIndustryCode());
+			if(role != null) {
+				merchantService.txMerchantAuth(merchantAuth, attachLst, role);
+			} else {
+				rtnMsg.setIsSuccess(false);
+				rtnMsg.setMessage("无法进行认证：相关认证角色没有配置");
+			}
 		} catch (Exception e) {
 			logger.error("doUpdateMerchantUser 出现异常：", e);
 			rtnMsg.setIsSuccess(false);
@@ -170,6 +194,5 @@ public class MerchantUserController {
 		}
 		return rtnMsg;
 	}
-
-
+	
 }

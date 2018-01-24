@@ -17,9 +17,11 @@ import com.mmnttech.ma.merchant.server.common.exception.DatabaseException;
 import com.mmnttech.ma.merchant.server.entity.MerchantAuth;
 import com.mmnttech.ma.merchant.server.mapper.AttachMapper;
 import com.mmnttech.ma.merchant.server.mapper.MerchantMapper;
+import com.mmnttech.ma.merchant.server.mapper.TaskMapper;
 import com.mmnttech.ma.merchant.server.model.Attach;
 import com.mmnttech.ma.merchant.server.model.Merchant;
 import com.mmnttech.ma.merchant.server.model.MerchantCert;
+import com.mmnttech.ma.merchant.server.model.Role;
 import com.mmnttech.ma.merchant.server.model.Task;
 import com.mmnttech.ma.merchant.server.util.StringUtil;
 /**
@@ -56,6 +58,9 @@ public class MerchantService {
 
     @Autowired
     private TaskService taskService;
+    
+    @Autowired
+    private TaskMapper taskMapper;
     
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -102,7 +107,7 @@ public class MerchantService {
             Task task = new Task();
             task.setType(MerchantCertTaskType);
             task.setTaskDesc("诚信商户认证");
-            task.setRole(roleService.queryRoleById(curMerchant.getRoleId()).getRecId());
+            task.setRoleId(roleService.queryRoleById(curMerchant.getRoleId()).getRecId());
             task.setData(merchant.getRecId());
             taskList.add(task);
         }
@@ -113,10 +118,24 @@ public class MerchantService {
     }
     
     @Transactional
-	public void txMerchantAuth(MerchantAuth merchantAuth, List<Attach> attachLst) {
+	public void txMerchantAuth(MerchantAuth merchantAuth, List<Attach> attachLst, Role role) {
+    	StringBuffer taskDesc = new StringBuffer();
+    	taskDesc.append("认证商户(").append(merchantAuth.getCpyName()).append(")");
+    	
+    	
 		merchantAuth.setAuthStep(DictionaryConst.TMerchant.AUTH_STEP_1);
 		merchantAuth.setComStat(DictionaryConst.Common.COM_STAT_WAITING_4_AUTHORIZETION);
 		merchantMapper.updateByPrimaryKeySelective(merchantAuth);
+		
+		Task task = new Task();
+		task.setRecId(StringUtil.getUUID());
+		task.setCreateDate(new Date());
+		task.setTaskDesc(taskDesc.toString());
+		task.setStatus(DictionaryConst.TTask.STATUS_STANDBY);
+		task.setType(DictionaryConst.TTask.TYPE_MERCHANT);
+		task.setMainId(merchantAuth.getRecId());
+		task.setRoleId(role.getRecId());
+		taskMapper.insert(task);
 		
 		for(Attach record : attachLst) {
 			record.setRecId(StringUtil.getUUID());

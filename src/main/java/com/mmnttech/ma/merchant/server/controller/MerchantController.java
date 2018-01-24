@@ -64,6 +64,8 @@ public class MerchantController {
 					merchantInfo.put("idCardBackUrl", StaticFileService.STATIC_IMAGE_PATH + attach.getAttachUrl());
 				} else if(attach.getType().equals(DictionaryConst.TAttach.TYPE_MERCHANT_LICENSE_IMAGE)) {
 					merchantInfo.put("licenseNoUrl", StaticFileService.STATIC_IMAGE_PATH + attach.getAttachUrl());
+				} else if(attach.getType().equals(DictionaryConst.TAttach.TYPE_MERCHANT_QR)) {
+					merchantInfo.put("merchantQRImage", StaticFileService.STATIC_IMAGE_PATH + attach.getAttachUrl());
 				}
 			}
 			rtnMsg.setRtnObj(merchantInfo);

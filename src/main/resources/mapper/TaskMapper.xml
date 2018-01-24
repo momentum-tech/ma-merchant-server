@@ -7,7 +7,7 @@
     -->
     <id column="rec_id" jdbcType="VARCHAR" property="recId" />
     <result column="type" jdbcType="VARCHAR" property="type" />
-    <result column="role" jdbcType="VARCHAR" property="role" />
+    <result column="role_id" jdbcType="VARCHAR" property="roleId" />
     <result column="task_desc" jdbcType="VARCHAR" property="taskDesc" />
     <result column="data" jdbcType="VARCHAR" property="data" />
     <result column="operator" jdbcType="VARCHAR" property="operator" />
@@ -15,5 +15,6 @@
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
     <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
     <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="main_id" jdbcType="VARCHAR" property="mainId" />
   </resultMap>
 </mapper>

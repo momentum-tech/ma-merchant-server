@@ -54,12 +54,16 @@ public class DictionaryConst {
 		public static final String TYPE_ID_FRONT_IMAGE = "2";
 		public static final String TYPE_ID_BACK_IMAGE = "3";
 		public static final String TYPE_MERCHANT_LICENSE_IMAGE = "4";
+		public static final String TYPE_MERCHANT_QR = "5";
 	}
 	
 	public class TTask {
 		public static final String STATUS_STANDBY = "1";
 		public static final String STATUS_FINISH = "2";
 		public static final String STATUS_PROCESSING = "P";
+		
+		public static final String TYPE_MERCHANT = "1";
+		public static final String TYPE_COMPLAINT = "2";
 	}
 	
 }

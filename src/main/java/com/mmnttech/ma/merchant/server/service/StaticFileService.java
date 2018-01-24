@@ -162,7 +162,7 @@ public class StaticFileService {
 	public String storeImageFile(byte[] fileInfos, String fileFormat) {
 		try {
 			StringBuffer fileName = new StringBuffer();
-			fileName.append(StringUtil.getUUID().substring(0, 8)).append(".").append("T").append(".").append(fileFormat);
+			fileName.append(StringUtil.getUUID().substring(0, 8)).append(".").append(fileFormat);
 			
 			FileOutputStream fos = null;
 			FileInputStream fis = null;
@@ -193,6 +193,34 @@ public class StaticFileService {
 			}
 		} catch (Exception e) {
 			logger.error("storeStaticImageFile 异常：", e);
+		}
+		return null;
+	}
+	
+	public String storeImageFileDirect(byte[] imageData, String fileFormat) {
+		FileOutputStream fos = null;
+		try {
+			StringBuffer fileName = new StringBuffer();
+			fileName.append(StringUtil.getUUID().substring(0, 8)).append(".").append(fileFormat);
+			
+			StaticFileEntity staticFileEntity = checkFileFolder();
+			
+			String imageFullName = staticFileEntity.getFileNamePre() + File.separator + fileName;
+			String imageRelativePath = staticFileEntity.getFileRelativePrefixStr() + File.separator + fileName;
+			
+			fos = new FileOutputStream(new File(imageFullName));
+			fos.write(imageData);
+			
+			return imageRelativePath;
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if (fos != null) {
+					fos.close();
+				}
+			} catch (IOException ioException) {
+			}
 		}
 		return null;
 	}
