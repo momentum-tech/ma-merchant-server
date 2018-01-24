@@ -14,6 +14,7 @@ import tk.mybatis.mapper.entity.Example;
 
 import com.mmnttech.ma.merchant.server.common.entity.QueryEntity;
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
+import com.mmnttech.ma.merchant.server.mapper.AreaCodeMapper;
 import com.mmnttech.ma.merchant.server.mapper.MenuGroupMapper;
 import com.mmnttech.ma.merchant.server.mapper.RoleMapper;
 import com.mmnttech.ma.merchant.server.mapper.RoleMenuGroupMapper;
@@ -47,6 +48,9 @@ public class RoleService {
 	
 	@Autowired
 	private MenuGroupMapper menuGroupMapper;
+	
+	@Autowired
+	private AreaCodeMapper areaCodeMapper;
 	
 	public List<Map<String, Object>> queryRoleLst(QueryEntity queryEntity) {
 		List<Object> paramLst = new ArrayList<Object>();
@@ -194,6 +198,28 @@ public class RoleService {
 		
 		return menuGroupIdLst;
 	}
+
+	public Role queryAuthRole(String areaCode, String industryCode) {
+		Role role = queryRoleInfo(areaCode, industryCode);
+		if(role == null) {
+			return queryRoleInfo("53", industryCode);
+		} else {
+			return role;
+		}
+	}
 	
+	private Role queryRoleInfo(String areaCode, String industryCode) {
+		Example example2 = new Example(Role.class);
+		example2.createCriteria().andEqualTo("areaCode", areaCode)
+			.andEqualTo("industryCode", industryCode);
+		
+		List<Role> role = roleMapper.selectByExample(example2);
+		
+		if(role != null && !role.isEmpty()) {
+			return role.get(0);
+		}
+		
+		return null;
+	}
 	
 }

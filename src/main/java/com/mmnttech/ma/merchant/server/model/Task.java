@@ -11,7 +11,8 @@ public class Task {
 
     private String type;
 
-    private String role;
+    @Column(name = "role_id")
+    private String roleId;
 
     @Column(name = "task_desc")
     private String taskDesc;
@@ -30,6 +31,9 @@ public class Task {
 
     @Column(name = "end_time")
     private Date endTime;
+
+    @Column(name = "main_id")
+    private String mainId;
 
     /**
      * @return rec_id
@@ -60,17 +64,17 @@ public class Task {
     }
 
     /**
-     * @return role
+     * @return role_id
      */
-    public String getRole() {
-        return role;
+    public String getRoleId() {
+        return roleId;
     }
 
     /**
-     * @param role
+     * @param roleId
      */
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
 
     /**
@@ -169,5 +173,19 @@ public class Task {
      */
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    /**
+     * @return main_id
+     */
+    public String getMainId() {
+        return mainId;
+    }
+
+    /**
+     * @param mainId
+     */
+    public void setMainId(String mainId) {
+        this.mainId = mainId;
     }
 }

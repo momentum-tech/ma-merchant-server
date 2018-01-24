@@ -9,5 +9,7 @@
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="platform" jdbcType="VARCHAR" property="platform" />
     <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="industry_code" jdbcType="VARCHAR" property="industryCode" />
+    <result column="area_code" jdbcType="VARCHAR" property="areaCode" />
   </resultMap>
 </mapper>

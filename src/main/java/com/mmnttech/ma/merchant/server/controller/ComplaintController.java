@@ -1,16 +1,25 @@
 package com.mmnttech.ma.merchant.server.controller;
 
+import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.mmnttech.ma.merchant.server.common.entity.QueryEntity;
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
 import com.mmnttech.ma.merchant.server.model.Complaint;
 import com.mmnttech.ma.merchant.server.service.ComplaintService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  * @类名 ComplaintController
@@ -38,8 +47,8 @@ public class ComplaintController {
 			@ModelAttribute("queryEntity") QueryEntity queryEntity) {
 		RtnMessage rtnMsg = new RtnMessage();
 		try {
-			//TODO
-			
+			List<Map<String, Object>> complaintLst = complaintService.queryComplaintByMerchantId(queryEntity.getMerchId(), queryEntity.getPage(), queryEntity.getRows());
+			rtnMsg.setRtnObj(complaintLst);
 		} catch (Exception e) {
 			logger.error("queryComplaintInfos 出现异常：", e);
 			rtnMsg.setIsSuccess(false);

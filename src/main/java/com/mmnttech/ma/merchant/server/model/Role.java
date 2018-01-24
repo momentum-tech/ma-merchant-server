@@ -16,6 +16,12 @@ public class Role {
     @Column(name = "create_date")
     private Date createDate;
 
+    @Column(name = "industry_code")
+    private String industryCode;
+
+    @Column(name = "area_code")
+    private String areaCode;
+
     /**
      * @return rec_id
      */
@@ -70,5 +76,33 @@ public class Role {
      */
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    /**
+     * @return industry_code
+     */
+    public String getIndustryCode() {
+        return industryCode;
+    }
+
+    /**
+     * @param industryCode
+     */
+    public void setIndustryCode(String industryCode) {
+        this.industryCode = industryCode;
+    }
+
+    /**
+     * @return area_code
+     */
+    public String getAreaCode() {
+        return areaCode;
+    }
+
+    /**
+     * @param areaCode
+     */
+    public void setAreaCode(String areaCode) {
+        this.areaCode = areaCode;
     }
 }

@@ -16,7 +16,6 @@ import java.util.List;
  * @createAt 2018/1/12
  **/
 
-@Transactional(rollbackFor = DatabaseException.class)
 @Service("attachService")
 public class AttachService {
     @Autowired
@@ -26,7 +25,8 @@ public class AttachService {
         attachMapper.insert(attach);
         return attach;
     }
-
+    
+    @Transactional(rollbackFor = DatabaseException.class)
     public boolean createAll(List<Attach> attachListElements, String masterId) {
         for (Attach element : attachListElements) {
             element.setMasterId(masterId);
