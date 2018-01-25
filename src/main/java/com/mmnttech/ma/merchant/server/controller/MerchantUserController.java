@@ -1,19 +1,5 @@
 package com.mmnttech.ma.merchant.server.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import com.mmnttech.ma.merchant.server.common.entity.DictionaryConst;
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
 import com.mmnttech.ma.merchant.server.entity.MerchantAuth;
@@ -26,6 +12,18 @@ import com.mmnttech.ma.merchant.server.service.MerchantUserService;
 import com.mmnttech.ma.merchant.server.service.RoleService;
 import com.mmnttech.ma.merchant.server.service.StaticFileService;
 import com.mmnttech.ma.merchant.server.util.ImageHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @类名 MerchantUserController
@@ -132,7 +130,7 @@ public class MerchantUserController {
 				staticFileService.changeFile2Normal(merchantAuth.getIdCardFrontFullPath());
 				
 				Attach idCardFront = new Attach();
-				idCardFront.setType(DictionaryConst.TAttach.TYPE_ID_FRONT_IMAGE);
+				idCardFront.setType(DictionaryConst.AttachType.ID_FRONT_IMAGE.getValue());
 				idCardFront.setName("商户法人身份证(正面)");
 				idCardFront.setSeriNo(1);
 				idCardFront.setAttachUrl(merchantAuth.getIdCardBackUrl());
@@ -144,7 +142,7 @@ public class MerchantUserController {
 				staticFileService.changeFile2Normal(merchantAuth.getIdCardBackFullPath());
 				
 				Attach idCardBack = new Attach();
-				idCardBack.setType(DictionaryConst.TAttach.TYPE_ID_BACK_IMAGE);
+				idCardBack.setType(DictionaryConst.AttachType.ID_BACK_IMAGE.getValue());
 				idCardBack.setName("商户法人身份证(反面)");
 				idCardBack.setSeriNo(2);
 				idCardBack.setAttachUrl(merchantAuth.getIdCardBackUrl());
@@ -156,7 +154,7 @@ public class MerchantUserController {
 				staticFileService.changeFile2Normal(merchantAuth.getLicenseNoFullPath());
 				
 				Attach license = new Attach();
-				license.setType(DictionaryConst.TAttach.TYPE_MERCHANT_LICENSE_IMAGE);
+				license.setType(DictionaryConst.AttachType.MERCHANT_LICENSE_IMAGE.getValue());
 				license.setName("商户营业执照");
 				license.setSeriNo(3);
 				license.setAttachUrl(merchantAuth.getIdCardBackUrl());
@@ -173,7 +171,7 @@ public class MerchantUserController {
 			String imageRelativePath = staticFileService.storeImageFileDirect(imageData, "png");
 			
 			Attach merchantQR = new Attach();
-			merchantQR.setType(DictionaryConst.TAttach.TYPE_MERCHANT_QR);
+			merchantQR.setType(DictionaryConst.AttachType.MERCHANT_QR.getValue());
 			merchantQR.setName("商户诚信二维码");
 			merchantQR.setSeriNo(5);
 			merchantQR.setAttachUrl(imageRelativePath);

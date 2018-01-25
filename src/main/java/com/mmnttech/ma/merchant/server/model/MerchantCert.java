@@ -1,7 +1,11 @@
 package com.mmnttech.ma.merchant.server.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "t_merchant_cert")
 public class MerchantCert {
@@ -18,6 +22,7 @@ public class MerchantCert {
     @Column(name = "area_code")
     private String areaCode;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "create_date")
     private Date createDate;
 

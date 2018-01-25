@@ -1,29 +1,18 @@
 package com.mmnttech.ma.merchant.server.controller;
 
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import com.mmnttech.ma.merchant.server.common.dto.MerchantDto;
-import com.mmnttech.ma.merchant.server.common.entity.DictionaryConst;
 import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
-import com.mmnttech.ma.merchant.server.model.Attach;
 import com.mmnttech.ma.merchant.server.model.Merchant;
 import com.mmnttech.ma.merchant.server.service.AttachService;
 import com.mmnttech.ma.merchant.server.service.MerchantService;
-import com.mmnttech.ma.merchant.server.service.StaticFileService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.Map;
 
 /**
  * @类名 MerchantController
@@ -45,38 +34,39 @@ public class MerchantController {
 	
 	@Autowired
 	private AttachService attachService;
-	
-	private Logger logger = LoggerFactory.getLogger(MerchantController.class);
-	
 
-	//获取商户详细信息
+	private Logger logger = LoggerFactory.getLogger(MerchantController.class);
+
+
+    //TODO:待确认
+    //获取商户详细信息
     @RequestMapping(value = "/queryMerchantInfo")
     public RtnMessage queryMerchantInfo(HttpServletRequest request, HttpServletResponse response,
-			@ModelAttribute("merchant") Merchant merchant) {
-		RtnMessage rtnMsg = new RtnMessage();
-		try {
-			Map<String, Object> merchantInfo = merchantService.queryMerchantInfo(merchant.getRecId());
-			List<Attach> attachLst = attachService.findByMasterId(merchant.getRecId());
-			for(Attach attach : attachLst) {
-				if(attach.getType().equals(DictionaryConst.TAttach.TYPE_ID_FRONT_IMAGE)) {
-					merchantInfo.put("idCardFrontUrl", StaticFileService.STATIC_IMAGE_PATH + attach.getAttachUrl());
-				} else if(attach.getType().equals(DictionaryConst.TAttach.TYPE_ID_BACK_IMAGE)) {
-					merchantInfo.put("idCardBackUrl", StaticFileService.STATIC_IMAGE_PATH + attach.getAttachUrl());
-				} else if(attach.getType().equals(DictionaryConst.TAttach.TYPE_MERCHANT_LICENSE_IMAGE)) {
-					merchantInfo.put("licenseNoUrl", StaticFileService.STATIC_IMAGE_PATH + attach.getAttachUrl());
-				} else if(attach.getType().equals(DictionaryConst.TAttach.TYPE_MERCHANT_QR)) {
-					merchantInfo.put("merchantQRImage", StaticFileService.STATIC_IMAGE_PATH + attach.getAttachUrl());
-				}
-			}
-			rtnMsg.setRtnObj(merchantInfo);
-		} catch (Exception e) {
-			logger.error("queryMerchantInfo 出现异常：", e);
-			rtnMsg.setIsSuccess(false);
-			rtnMsg.setMessage(RtnMessage.ERROR_QUERY_1);
-		}
-		
-		return rtnMsg;
-	}
+                                        @ModelAttribute("merchant") Merchant merchant) {
+        RtnMessage rtnMsg = new RtnMessage();
+        try {
+            Map<String, Object> merchantInfo = merchantService.queryMerchantById(merchant.getRecId());
+//			List<Attach> attachLst = attachService.findByMasterId(merchant.getRecId());
+//			for(Attach attach : attachLst) {
+//				if(attach.getType().equals(DictionaryConst.AttachType.ID_FRONT_IMAGE.getValue())) {
+//					merchantInfo.put("idCardFrontUrl", StaticFileService.STATIC_IMAGE_PATH + attach.getAttachUrl());
+//				} else if(attach.getType().equals(DictionaryConst.AttachType.ID_BACK_IMAGE.getValue())) {
+//					merchantInfo.put("idCardBackUrl", StaticFileService.STATIC_IMAGE_PATH + attach.getAttachUrl());
+//				} else if(attach.getType().equals(DictionaryConst.AttachType.MERCHANT_LICENSE_IMAGE.getValue())) {
+//					merchantInfo.put("licenseNoUrl", StaticFileService.STATIC_IMAGE_PATH + attach.getAttachUrl());
+//				} else if(attach.getType().equals(DictionaryConst.AttachType.MERCHANT_QR.getValue())) {
+//					merchantInfo.put("merchantQRImage", StaticFileService.STATIC_IMAGE_PATH + attach.getAttachUrl());
+//				}
+//			}
+            rtnMsg.setRtnObj(merchantInfo);
+        } catch (Exception e) {
+            logger.error("queryMerchantInfo 出现异常：", e);
+            rtnMsg.setIsSuccess(false);
+            rtnMsg.setMessage(RtnMessage.ERROR_QUERY_1);
+        }
+
+        return rtnMsg;
+    }
 
 
 	//商户审核过程查询
@@ -115,7 +105,7 @@ public class MerchantController {
 		return rtnMsg;
 	}
 
-    @RequestMapping(method = RequestMethod.POST)
+    @RequestMapping(method = RequestMethod.POST, value = "/postmerchantinfo")
     public RtnMessage postCertification(@RequestBody MerchantDto merchantDto) {
         RtnMessage rtnMessage = new RtnMessage();
         try {
@@ -129,9 +119,9 @@ public class MerchantController {
         return rtnMessage;
     }
 
-	@RequestMapping(method = RequestMethod.GET)
-	public RtnMessage findCertification(@RequestParam String key) {
-		RtnMessage rtnMessage = new RtnMessage();
+    @RequestMapping(method = RequestMethod.GET, value = "/querymerchantinfo")
+    public RtnMessage findCertification(@RequestParam String key) {
+        RtnMessage rtnMessage = new RtnMessage();
 		try {
             rtnMessage.setRtnObj(merchantService.queryMerchantDetailInfoById(key));
             rtnMessage.setIsSuccess(true);

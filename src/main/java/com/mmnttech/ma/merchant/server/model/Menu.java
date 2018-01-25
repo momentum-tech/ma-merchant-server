@@ -1,7 +1,11 @@
 package com.mmnttech.ma.merchant.server.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
-import javax.persistence.*;
 
 @Table(name = "t_menu")
 public class Menu {
@@ -18,6 +22,7 @@ public class Menu {
     @Column(name = "menu_group_id")
     private String menuGroupId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Column(name = "create_date")
     private Date createDate;
 

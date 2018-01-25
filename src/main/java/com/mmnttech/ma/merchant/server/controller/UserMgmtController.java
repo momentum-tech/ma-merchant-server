@@ -1,12 +1,14 @@
 package com.mmnttech.ma.merchant.server.controller;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
+import com.mmnttech.ma.merchant.server.common.entity.TreeMenuItem;
+import com.mmnttech.ma.merchant.server.model.MerchantUser;
+import com.mmnttech.ma.merchant.server.model.Role;
+import com.mmnttech.ma.merchant.server.model.SvcUser;
+import com.mmnttech.ma.merchant.server.service.MerchantService;
+import com.mmnttech.ma.merchant.server.service.MerchantUserService;
+import com.mmnttech.ma.merchant.server.service.RoleService;
+import com.mmnttech.ma.merchant.server.service.SvcUserMgmtService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,16 +17,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mmnttech.ma.merchant.server.common.entity.RtnMessage;
-import com.mmnttech.ma.merchant.server.common.entity.TreeMenuItem;
-import com.mmnttech.ma.merchant.server.model.Merchant;
-import com.mmnttech.ma.merchant.server.model.MerchantUser;
-import com.mmnttech.ma.merchant.server.model.Role;
-import com.mmnttech.ma.merchant.server.model.SvcUser;
-import com.mmnttech.ma.merchant.server.service.MerchantService;
-import com.mmnttech.ma.merchant.server.service.MerchantUserService;
-import com.mmnttech.ma.merchant.server.service.RoleService;
-import com.mmnttech.ma.merchant.server.service.SvcUserMgmtService;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @类名 UserMgmtController
@@ -63,13 +60,12 @@ public class UserMgmtController {
 			MerchantUser record = merchantUserService.queryMerchanteUser(merchantUser);
 			if(record != null) {
 				Role role = roleService.queryMerchanteRoleInfo();
-				Merchant merchant = merchantService.queryMerchantById(record.getMerchantId());
-				
+				Map<String, Object> merchant = merchantService.queryMerchantById(record.getMerchantId());
 				String treeNodeId = request.getParameter("treeNodeId");
 				
 				Map<String, Object> userBaseInfo = new HashMap<String, Object>();
-				
-				List<TreeMenuItem> datas = svcUserMgmtService.queryUserTreeMenuItem(role.getRecId(), treeNodeId, merchant.getComStat());
+
+				List<TreeMenuItem> datas = svcUserMgmtService.queryUserTreeMenuItem(role.getRecId(), treeNodeId, merchant.get("com_stat").toString());
 				userBaseInfo.put("menuInfo", datas);
 				userBaseInfo.put("roleInfo", role.getName() + "(" + role.getPlatform() + ")");
 				

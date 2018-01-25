@@ -20,10 +20,6 @@ import java.util.List;
 @Service("taskService")
 public class TaskService {
 
-    protected static final String TaskStatusWaiting = "1";
-    protected static final String TaskStatusEnding = "2";
-    protected static final String TaskStatusProcessing = "P";
-
     @Autowired
     private TaskMapper taskMapper;
 
@@ -31,7 +27,6 @@ public class TaskService {
         List<Task> curTaskList = new LinkedList<>();
         for (Task task : taskList) {
             task.setRecId(StringUtil.getUUID());
-            task.setStatus(TaskStatusWaiting);
             taskMapper.insert(task);
             curTaskList.add(task);
         }
